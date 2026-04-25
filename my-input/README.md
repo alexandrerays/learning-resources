@@ -1,4 +1,4 @@
-# My Learning History (Since 2010)
+# My Learning History
 
 ## Classification by duration:
 - **Short course:** 1–10 hours
