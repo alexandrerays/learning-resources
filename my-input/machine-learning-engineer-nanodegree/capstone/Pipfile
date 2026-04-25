@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+verify_ssl = true
+url = "https://pypi.org/simple"
+
+[packages]
+notebook = "*"
+pandas = "*"
+numpy = "*"
+seaborn = "*"
+scikit-learn = "==0.21.3"
+lightgbm = "==2.2.3"
+
+[dev-packages]
+
+[requires]
+python_version = "3.5"
