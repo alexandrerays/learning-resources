@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+// Declaração do TIPO de dado registro1
+typedef struct{
+    char nome[20];
+    char telefone[20];
+} registro1;
+
+// Programa Principal
+int main(void){
+    
+    // Vetor de clientes do tipo registro 1
+    registro1 clientes[10];
+    
+    /* Leitura dos clientes */
+    int i;
+    for(i=0; i<10; i++){
+        printf("Digite o nome do cliente %d:",i+1);
+        gets(clientes[i].nome);
+        printf("\nDigite o telefone do cliente %d:",i+1);
+        gets(clientes[i].telefone);
+        printf("\n\n");
+    }
+    
+    /* Escrita dos clientes */
+    for(i=0; i<10; i++){
+        printf("\nCliente %d:\n",i+1);
+        printf("Nome: %s\n",clientes[i].nome);
+        printf("Telefone: %s\n",clientes[i].telefone);
+    }
+    getch();
+   
+}

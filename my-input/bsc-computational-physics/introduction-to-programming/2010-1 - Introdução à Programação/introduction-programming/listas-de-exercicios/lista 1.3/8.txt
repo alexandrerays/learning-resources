@@ -1,0 +1,50 @@
+/*************************************************************************/
+/*Lista1 exer3.8                                                        */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010                   */
+/*************************************************************************/
+
+a)B1=false, B2= true, B3=true;
+
+comandos a serem executados:
+
+if B1    //nao
+    C1  //nao
+else
+{
+    if B2
+    {
+        if B3
+            C2;
+        else //nao
+            C3;  //nao
+        C4;
+     }
+C5;
+
+}
+
+
+b)Para só C5; ser executado devemos ter os seguintes valores:
+
+
+
+comandos a serem executados:
+
+B1 = false
+B2 = false
+
+if B1   //nao
+    C1  //nao
+else
+{
+    if B2  //nao
+    {
+        if B3  //nao
+            C2; //nao
+        else //nao
+            C3;  //nao
+        C4;  //nao
+     }
+C5;
+
+}

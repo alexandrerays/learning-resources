@@ -1,0 +1,43 @@
+﻿/**********************************************************/
+/*Lista1 exer9                                        */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+Temos 6 comandos "Escreva". Numerei-os de 1 a 6:
+
+1)Escreva(TOTAL) => 21.000000
+
+2)Escreva('TOTAL=',TOTAL) =>Total = 4.000000
+
+3)Escreva('TOTAL=',TOTAL) => Total = 20.000000
+
+4)Escreva('A =',A) => A = 5.000000
+
+5)Escreva('B =',B) => B = 3.000000
+
+6)Escreva('A + B',A + B) => A + B = 8.000000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

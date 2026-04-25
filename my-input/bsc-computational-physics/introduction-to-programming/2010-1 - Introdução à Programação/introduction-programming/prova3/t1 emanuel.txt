@@ -1,0 +1,288 @@
+/*Trabalho1 - Emanuel Carlos de Alcantara Valente*/
+/*Fiscomp - Turma 010*/
+/*No usp: 7143506 */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define linhas 4
+#define colunas 5
+
+void zera_matriz(int **m, int l, int c);
+/*void imprime_matriz(int **m, int l, int c);*/
+int menu();
+int tem_vagas_executiva(int **m);
+void insere_executiva(int **m, int *b1, char *b2);
+int tem_vagas_economica(int **m);
+void insere_economica(int **m, int *b1, char *b2);
+void imprime_cartao(int b1, char b2, int tipo_classe);
+void imprime_lotados();
+void imprime_maistarde();
+
+int main()
+{
+    int **Assentos;
+    int i,j;
+    int opcao;
+    int poltrona1;
+    char poltrona2;
+    char troca_classe;
+
+
+    /*aloca a matriz dinamicamente*/
+    Assentos = (int**)malloc(linhas*sizeof(int*));
+    for(i=0;i<linhas;i++)Assentos[i]=(int*)malloc(colunas*sizeof(int));
+
+    zera_matriz(Assentos,linhas,colunas);
+    //imprime_matriz(Assentos,linhas,colunas);
+
+
+   do{
+       opcao = menu();
+
+        if(opcao==1) { /*executiva*/
+            if(tem_vagas_executiva(Assentos)){
+                insere_executiva(Assentos,&poltrona1,&poltrona2);
+                imprime_cartao(poltrona1, poltrona2, 1); //1 = executiva 2= economica
+            }else {
+                system("cls");
+                printf("\n\t\t\t\tWTF LINHAS AEREAS\n");
+                printf("\n\t\t+-----------------------------------------------+");
+                printf("\n\t\t+\tArea executiva lotada!\t\t\t+\n\t\t+ Deseja ser colocada na area economica?\t+");
+                printf("\n\t\t+-----------------------------------------------+\n\n");
+                printf("\t\t\t(S)im / (N)ao: ");
+                scanf("%c",&troca_classe);
+                getchar();
+                if((troca_classe=='s')||(troca_classe=='S')){
+                    if(tem_vagas_economica(Assentos)) {
+                        insere_economica(Assentos,&poltrona1,&poltrona2);
+                        imprime_cartao(poltrona1, poltrona2, 0);
+                    }else imprime_lotados(); //ambos lotados
+                }else imprime_maistarde(); //desejou sair mais tarde
+
+            }
+        }else {
+            if(opcao==2) { //opcao ==2 (economica)
+                if(tem_vagas_economica(Assentos)){
+                    insere_economica(Assentos,&poltrona1,&poltrona2);
+                    imprime_cartao(poltrona1, poltrona2, 0); //0 -> economica 1->executiva
+                    }else {
+                        system("cls");
+                    printf("\n\t\t\t\tWTF LINHAS AEREAS\n");
+                    printf("\n\t\t+-----------------------------------------------+");
+                    printf("\n\t\t+\tArea economica lotada!\t\t\t+\n\t\t+ Deseja ser colocado na area executiva?\t+");
+                    printf("\n\t\t+-----------------------------------------------+\n\n");
+                    printf("\t\t\t(S)im / (N)ao: ");
+                    scanf("%c",&troca_classe);
+                    if((troca_classe=='s')||(troca_classe=='S')) {
+                        if(tem_vagas_executiva(Assentos)) {
+                            insere_executiva(Assentos,&poltrona1,&poltrona2);
+                            imprime_cartao(poltrona1, poltrona2, 1);
+                            }else imprime_lotados(); //amgos lotados
+
+                        }else imprime_maistarde(); //desejou sair mais tarde
+                }
+            }
+
+            //imprime mensagem e sai!
+            if(opcao==0) {
+                system("cls");
+                printf("\n\t\t\t\tWTF LINHAS AEREAS\n");
+                printf("\n\t\t+-----------------------------------------------+");
+                printf("\n\t\t+\t Obrigado pela preferencia ! \t\t+\n");
+                printf("\t\t+-----------------------------------------------+\n\n");
+                system("pause");
+                exit(0);
+
+            }
+
+
+
+        }
+
+   }while(opcao!=0);
+
+   free(Assentos);
+
+    return (0);
+}
+
+
+void zera_matriz(int **m, int l, int c)
+{
+    int i, j;
+
+    for(i=0; i<l; i++){
+        for(j=0; j<c; j++) m[i][j] = 0;
+    }
+
+}
+
+/*void imprime_matriz(int **m, int l, int c)
+{
+    int i, j;
+
+    for(i=0; i<l; i++){
+        printf("\n");
+        for(j=0; j<c; j++) printf(" %d ",m[i][j]);
+    }
+}
+*/
+
+/*retorna um inteiro com a opcao valida (1 ,2 ou 0)*/
+/*se a opcao for invalida, a funcao limpa a tela e volta*/
+/*a exibir o menu.*/
+int menu()
+{
+    int opcao;
+    while((opcao < 0)||(opcao > 2))
+    {
+        if((opcao<0)||(opcao>2)) {
+            system("cls");
+        }
+
+        //system("cls");
+        printf("\n\t\t\t\tWTF LINHAS AEREAS\n");
+        printf("\n\t\t+------------------------------------------------------------+\n");
+        printf("\t\t+\tPor favor, pressione (1) para \"classe executiva\"     +\n");
+        printf("\t\t+\tPor favor, pressione (2) para \"classe economica\"     +\n");
+        printf("\t\t+\tPor favor, pressione (0) para sair                   +\n");
+        printf("\t\t+------------------------------------------------------------+\n");
+        printf("\n\t\t\t\tOpcao desejada: ");
+        scanf("%d",&opcao);
+        getchar();
+    }
+
+    return opcao;
+}
+
+
+/*verifica se existe uma vaga na classe executiva*/
+/*caso existir retorna 1, caso nao, 0*/
+int tem_vagas_executiva(int **m)
+{
+    int i, j;
+
+    for(i=0; i<4; i++) {
+        for(j=0; j<2; j++) {
+            if(m[i][j] == 0) return 1;
+        }
+    }
+
+    return 0;
+}
+
+
+/*percorre as duas primeiras colunas (classe executiva) e */
+/*insere o numero 1 na posicao m[i][j] da matriz*/
+/* *b1 sera o numero da coluna e *b2 um char p/ linha (a,b,c ou d)*/
+/*em ordem alfabetica decrescente. *b1 e *b2 sao ponteiros para serem */
+/*usados na impressao do cartao de embarque*/
+void insere_executiva(int **m,int *b1, char *b2)
+{
+    int i, j;
+
+    for (i=0; i<4; i++) {
+        for(j=0; j<2; j++) {
+            if(m[i][j]==0){
+                m[i][j]=1;
+                if(i==0)*b2='D';
+                if(i==1)*b2='C';
+                if(i==2)*b2='B';
+                if(i==3)*b2='A';
+                *b1 = j+1;
+                //pra sair do laço
+                i=4;
+                j=2;
+            }
+        }
+    }
+}
+
+/*verifica se existe uma vaga na classe economica*/
+/*caso existir retorna 1, caso nao, 0*/
+int tem_vagas_economica(int **m)
+{
+    int i, j;
+
+    for(i=0; i<4; i++) {
+        for(j=2; j<5; j++) {
+            if(m[i][j] == 0) return 1;
+        }
+    }
+
+    return 0;
+}
+
+/*percorre as 3 ultimas colunas (classe economica) e */
+/*insere o numero 1 na posicao m[i][j] da matriz*/
+/* *b1 sera o numero da coluna e *b2 um char p/ linha (a,b,c ou d)*/
+/*em ordem alfabetica decrescente. *b1 e *b2 sao ponteiros para serem */
+/*usados na impressao do cartao de embarque*/
+void insere_economica(int **m, int *b1, char *b2)
+{
+    int i, j;
+
+    for (i=0; i<4; i++) {
+        for(j=2; j<5; j++) {
+            if(m[i][j]==0){
+                m[i][j]=1;
+                if(i==0)*b2='D';
+                if(i==1)*b2='C';
+                if(i==2)*b2='B';
+                if(i==3)*b2='A';
+                *b1 = j+1;
+                //sai do laço
+                i=4;
+                j=5;
+            }
+        }
+    }
+}
+
+
+/*imprime o cartao de embarque: b1 sera o numero da coluna e b2 */
+/*a letra da linha em ordem decrescente. O ultimo argumento diz respeito*/
+/*a classe de passeiro: 1 caso executiva e qualquer outro valor para economica*/
+void imprime_cartao(int b1, char b2, int tipo_classe)
+{
+    system("cls");
+
+    if(tipo_classe) { //executiva
+        printf("\n\t\t\t\tWTF LINHAS AEREAS\n");
+        printf("\n\t\t+-----------------------------------------------+");
+        printf("\n\t\t+\t\t Cartao de Embarque\t\t+\n\t\t+\t\t Classe: Executiva\t\t+\n\t\t+\t\t Poltrona: %d%c\t\t\t+\n",b1,b2);
+        printf("\t\t+-----------------------------------------------+\n\n");
+        system("pause");
+        system("cls");
+    }else { //economica
+        printf("\n\t\t\t\tWTF LINHAS AEREAS\n");
+        printf("\n\t\t+-----------------------------------------------+");
+        printf("\n\t\t+\t\t Cartao de Embarque\t\t+\n\t\t+\t\t Classe: Economica\t\t+\n\t\t+\t\t Poltrona: %d%c\t\t\t+\n",b1,b2);
+        printf("\t\t+-----------------------------------------------+\n\n");
+        system("pause");
+        system("cls");
+    }
+}
+
+void imprime_lotados()
+{
+    system("cls");
+    printf("\n\t\t\t\tWTF LINHAS AEREAS\n");
+    printf("\n\t\t+-----------------------------------------------+");
+    printf("\n\t\t+\t Todos as lugares estao ocupados ! \t+\n\t\t+\t Proximo voo sai daqui 3 horas\t\t+\n");
+    printf("\t\t+-----------------------------------------------+\n\n");
+    system("pause");
+    exit(0);
+}
+
+void imprime_maistarde()
+{
+    system("cls");
+    printf("\n\t\t\t\tWTF LINHAS AEREAS\n");
+    printf("\n\t\t+-----------------------------------------------+");
+    printf("\n\t\t+\t Proximo voo sai daqui 3 horas\t\t+\n");
+    printf("\t\t+-----------------------------------------------+\n\n");
+    system("pause");
+    exit(0);
+}

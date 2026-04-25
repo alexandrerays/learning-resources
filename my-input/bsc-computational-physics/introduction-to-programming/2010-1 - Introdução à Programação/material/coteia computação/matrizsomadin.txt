@@ -1,0 +1,87 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+
+// Protótipo da funcao soma
+void soma(int, int, int**, int**, int**);
+
+int main()
+{
+    int **A, **B,**C;
+    int i, j, n, m;
+    
+    // Leitura da matriz A
+    printf("Entre com as dimensoes (M x N) das matrizes:\n");
+    scanf("%d %d", &m,&n);
+    
+    // Alocação dinamica das 3 matrizes
+    A = (int **) malloc(m*sizeof(int *));
+    B = (int **) malloc(m*sizeof(int *));
+    C = (int **) malloc(m*sizeof(int *));
+
+    for (i=0 ; i<m; i++)
+    {
+        A[i] = (int *) malloc(n*sizeof(int));
+        B[i] = (int *) malloc(n*sizeof(int));
+        C[i] = (int *) malloc(n*sizeof(int));
+    }   
+    // Fim da alocacao dinamica
+        
+    
+    // Leitura da matriz A
+    for (i=0 ; i<m; i++)
+        for (j=0; j<n;j++)
+        {
+            printf("Entre com o elemento A[%d,%d]=", i,j);
+            scanf("%d", &A[i][j]);
+        }
+        
+    // Leitura da matriz B
+    for (i=0 ; i<m; i++)
+        for (j=0; j<n;j++)
+        {
+            printf("entre com o elemento B[%d,%d]=", i,j);
+            scanf("%d", &B[i][j]);
+        }
+        
+    // Impressao da matriz A
+    printf("\n\nMatriz A\n");
+    for (i=0;i<m;i++)
+    {
+        printf("\n");
+        for (j=0; j<n;j++)
+            printf("%d   ",A[i][j]);
+    }
+    
+    // Impressao da matriz B
+    printf("\n\nMatriz B\n");
+    for (i=0;i<m;i++)
+    {
+        printf("\n");
+        for (j=0; j<n;j++)
+            printf("%d   ",B[i][j]);
+    }
+        
+    // Chamada ao subprograma que calcula a soma das matrizes
+    soma(n,m,A,B,C);
+
+    // Impressao da matriz C (matriz soma)
+    printf("\n\nMatriz C\n");
+    for (i=0;i<m;i++)
+    {
+        printf("\n");
+        for (j=0; j<n;j++)
+            printf("%d   ",C[i][j]);
+    }
+    
+    printf("\n\ndigite <enter> para finalizar");
+    getch();
+}
+
+void soma(int m, int n, int**A, int**B, int**C){
+  int i,j;   
+      for (i=0;i<m;i++)
+        for (j=0; j<n;j++)
+            C[i][j] = A[i][j] + B[i][j];
+      
+      }

@@ -1,0 +1,107 @@
+
+<!-- saved from url=(0052)http://www.icmc.usp.br/pessoas/mello/trabalho03.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Questões Relativas ao Trabalho 03</title>
+	
+</head>
+
+<body>
+<b>Questões Relativas ao Trabalho 03</b><br><br>
+
+<hr>
+
+1) Gostaria de saber se utilizando a função readline criada em aula, e fornecida no tutorial via Tidia, posso acabar caindo no plágio, caso outros colegas a usem da mesma forma.  Pretendia usar no Trabalho 2, mas não o fiz com esse receio.<br><br>
+
+Resp: Sem problemas. Utilize a função. Iremos desconsiderá-la no plágio.<br><br>
+
+<hr>
+
+2) Gostaria de saber como a conversão do grupo de 32 caracteres deve ocorrer. para cada byte, devo considerar o valor binário do caractere que nele está?<br><br>
+   Por exemplo, a letra 'a' em binário é representada por 8 bits (<font color="red">01100001</font>) e 'ç' também por 8 bits (<font color="green">11100111</font>). Supondo que o texto seja 'açaçaçaçaçaçaçaçaçaçaçaçaçaçaçaç', o valor binário seria <br><br>
+
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>
+<font color="red">01100001</font><font color="green">11100111</font>???<br><br>
+
+Resp: Exatamente. Nesse caso você somaria essa string com outra também com 32 caracteres.<br><br>
+
+<hr>
+
+3) A questão 2 é esclarecedora, mas como começo a somar?<br><br>
+
+Resp: Começe pelo caracter mais à sua direita. Por exemplo, como somar "abcdefghijklmnopqrstuvxz*;:.&lt;&gt;?]" + "waaaabbbbccccddddeeeegggghhhhijh"? Inicie somando o valor dos caracteres mais à direita, neste caso o caracter ']' da primeira palavra com 'h' da segunda. Mas como somar? basta pegar os valores contidos nesses dois bytes de memória (dica: utilize unsigned char *) e somá-los. Como ali na memória há bits, os bits serão somados, apenas isso. Porém observe que pode haver overflow (estouro da soma), assim o resultado não cabe em 8 bits, mas pode necessitar de algum bit adicional.<br><br>
+
+Se houver estouro, esse overflow deve ser somado nos dois caracteres seguintes das palavras, o que será: estouro da soma anterior + '?' da primeira palavra + 'j' da segunda palavra e assim sucessivamente.<br><br>
+
+<hr>
+
+4) Como faço para tratar os acentos?<br><br>
+
+Resp: Usaremos textos ASCII sem acentos.<br><br>
+
+<hr>
+
+5) Professor, as questões 2 e 3 ajudam bastante, mesmo assim tenho uma dúvida. Suponha que eu tenha 3 blocos de 256 bits (3 blocos de 32 caracteres). Conforme abaixo:<br><br>
+
+bloco_1<br>
+bloco_2<br>
+bloco_3<br><br>
+
+Quando termino de somar o bloco_1 ao bloco_2, pode haver overflow. Devo somar esse overflow ao bloco_3?<br><br>
+
+Resp: Não. Por exemplo, suponha o bloco_1 conforme abaixo:<br><br>
+
+11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111 <br><br>
+
+Suponha o bloco_2 conforme abaixo:<br><br>
+
+00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001<br><br>
+
+A soma de ambos resulta em:<br><br>
+
+1 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000<br><br>
+
+Observe que há um bit a mais à esquerda, além dos 256 bits. Esqueça esse bit de overflow e continue a soma sem ele. Ou seja, agora some os 256 bits menos significativos resultantes da soma de bloco_1 + bloco_2 abaixo:<br><br>
+
+00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000<br><br>
+
+ao bloco_3 e assim sucessivamente.<br>
+
+<hr>
+
+6) Observação de alguns códigos de alunos:<br><br>
+
+Resp: Se o arquivo texto contiver, por exemplo, "abcdefgdkfjhflghsflbhdfilvbhbefrilvbhklefhvbhdfhhbukdfhbkdfhbjkdfnkldfn&nbsp;jklbruvberjvnlerknvukerbvlernv&nbsp;&nbsp;f&nbsp;dfg&nbsp;fg&nbsp;dffd&nbsp;g&nbsp;ffd&nbsp;fgd&nbsp;fdg&nbsp;ffg&nbsp;gfd&nbsp;fgd&nbsp;gdf&nbsp;". Você deverá ler esses bytes e considerar que cada bloco tem 32 bytes, por exemplo:<br><br>
+
+bloco_1 -&gt; "abcdefgdkfjhflghsflbhdfilvbhbefr"<br>
+bloco_2 -&gt; "ilvbhklefhvbhdfhhbukdfhbkdfhbjkd"<br>
+bloco_3 -&gt; "fnkldfn&nbsp;jklbruvberjvnlerknvukerb"<br>
+bloco_4 -&gt; "vlernv&nbsp;&nbsp;f&nbsp;dfg&nbsp;fg&nbsp;dffd&nbsp;g&nbsp;ffd&nbsp;fgd&nbsp;"<br>
+bloco_5 -&gt; "fdg&nbsp;ffg&nbsp;gfd&nbsp;fgd&nbsp;gdf&nbsp;"<br><br>
+
+Agora adicione espaços no último bloco de 32 caracteres, assim ele ficará:<br><br>
+
+"fdg&nbsp;ffg&nbsp;gfd&nbsp;fgd&nbsp;gdf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<br><br>
+
+Agora some o bloco_1 ao bloco_2 e armazene o resultado em RES. Considere apenas os 256 bits menos significativos de RES (Veja Questão 5 do FAQ).<br>
+Some RES ao bloco_3 e armazene o resultado em RES. Considere apenas os 256 bits menos significativos de RES (Veja Questão 5 do FAQ).<br>
+Some RES ao bloco_4 e armazene o resultado em RES. Considere apenas os 256 bits menos significativos de RES (Veja Questão 5 do FAQ). E assim sucessivamente.<br>
+
+<hr>
+
+
+
+</body></html>

@@ -1,0 +1,95 @@
+
+<!-- saved from url=(0052)http://www.icmc.usp.br/pessoas/mello/trabalho04.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Questões Relativas ao Trabalho 04</title>
+	
+</head>
+
+<body>
+<b>Questões Relativas ao Trabalho 04</b><br><br>
+
+<hr>
+
+1) Não entendi o formato do arquivo PGM.<br><br>
+
+Resp: O formato tem a primeira, a segunda, a terceira e a quarta linhas em formato texto. No entanto, o valor dos pixels é armazenado no formato binário. Isso significa que parte do arquivo (primeiras quatro linhas) deve ser tratada como texto e o restante como arquivo binário.<br><br>
+
+Para auxiliar na compreensão, faça download <a href="http://www.icmc.usp.br/pessoas/mello/test.pgm">deste arquivo</a>. Observe que seu conteúdo tem formato tal como:<br><br>
+
+<font face="Verdana" size="-1" color="red">
+P5<br>
+# CREATOR: GIMP PNM Filter Version 1.1<br>
+20 20<br>
+255<br>
+�������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+</font><br><br>
+
+Note que as primeiras quatro linhas estão em formato texto e a última contém bytes (formato binário). Lembre-se como fazemos para ler um arquivo texto e como fazemos para ler um arquivo binário. Estudem, também, as funções ftell e fseek, pois te ajudarão e muito a resolver este trabalho.<br>
+
+<hr>
+
+2) Como abrir um arquivo PGM no Windows, Mac OS e Linux?<br><br>
+
+Resp: Veja mais informações em: http://www.fileinfo.com/extension/pgm<br><br>
+
+<hr>
+
+3) Sobre o histograma que deve ser feito, no pdf com a especificação do trabalho, o conjunto dado como exemplo é {25, 0, 255, 254, 28, 2, 125, 124, 126}, dessa forma, foi dividido o intervalo [0,255] em 3.<br>
+Se o meu conjunto não tivesse 0 nem 255, ou seja, {25,254,28,2,125,124,126} eu teria que montar o histograma com o intervalo [2,254] ? É sempre o menor e maior elemento?<br><br>
+
+Resp: Não. Você sempre montará o histograma entre [0, máximo da escala de cinza]. Se o máximo na escala de cinza da imagem for 255, então você deverá dividir o intervalo [0, 255].<br><br>
+
+<hr>
+
+4) Poderia explicar melhor como funciona um arquivo texto e outro binário?<br><br>
+
+Resp: Observe o código a seguir:<br><br>
+
+#include &lt;stdlib.h&gt;<br>
+#include &lt;stdio.h&gt;<br>
+<br>
+int main(int argc, char *argv[]) {<br>
+&nbsp;FILE *fp_texto;<br>
+&nbsp;FILE *fp_binario;<br>
+&nbsp;int inteiro = 1234567;<br>
+<br>
+&nbsp;fp_texto = fopen("texto.txt", "w+");<br>
+&nbsp;fprintf(fp_texto, "%d", inteiro);<br>
+&nbsp;fclose(fp_texto);<br>
+<br>
+&nbsp;fp_binario = fopen("binario.dat", "wb+");<br>
+&nbsp;fwrite(&amp;inteiro, sizeof(int), 1, fp_binario);<br>
+&nbsp;fclose(fp_binario);<br>
+<br>
+&nbsp;return 0;<br>
+}<br><br>
+
+Esse inteiro ocupará 4 bytes na memória RAM, portanto ocupará 4 bytes no arquivo binário. No entanto, como ele tem 7 dígitos, quando salvarmos em um arquivo texto, ele ocupará 7 caracteres.<br><br>
+
+Veja abaixo:<br><br>
+
+[test@pinkfloyd tmp]$ ls -l texto.txt<br>
+-rw-r--r-- 1 test users 7 Aug 24 09:06 texto.txt<br>
+[test@pinkfloyd tmp]$ ls -l binario.dat<br>
+-rw-r--r-- 1 test users 4 Aug 24 09:06 binario.dat<br><br>
+
+O que isso quer dizer?<br><br>
+
+- O arquivo binário nada mais é do que a mesma representação da memória RAM, contudo em um arquivo. Logo, se salvarmos um double em arquivo binário, ele ocupará 8 bytes. Isso quer dizer que, assim como a memória RAM, o arquivo binário também depende do sizeof dos tipos? SIM.<br><br>
+- O arquivo texto armazena os caracteres do número. Neste caso ele salvará os caracteres 1234567, ocupando 7 bytes, um byte por dígito. Isso quer dizer que cada dígito armazenado será armazenado como seu código ASCII? SIM.<br><br>
+
+<hr>
+
+5) Uma das tarefas é imprimir o número máximo da escala de cinza da imagem. Esse número é aquele que está na quarta linha do cabeçalho da imagem?<br><br>
+
+Resp: Sim. Observe que é o número que está na quarta linha do cabeçalho e não o pixel de maior valor da imagem.<br><br>
+
+<hr>
+
+6) Outro arquivo para testarem <a href="http://www.icmc.usp.br/pessoas/mello/tux.pgm">AQUI</a><br><br>
+
+<hr>
+
+
+
+</body></html>

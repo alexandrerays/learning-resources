@@ -1,0 +1,22 @@
+﻿/**********************************************************/
+/*Lista1 exer3                                            */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+A expressão original está errada: 
+E1 = ((A+B>9)||(B1))&&(!=B2)||(((B-A)*A/B)<0)||((c=="casa")>A%2);
+
+O erro está em (!=B2). Não existe esse tipo de operação em C.
+
+Poderíamos ter:
+
+E1 = ((A+B>9)||(B1))&&(!B2)||(((B-A)*A/B)<0)||((c=="casa")>A%2);
+
+O resultado de E1 seria verdadeiro = true = 1.
+
+
+
+
+
+
+

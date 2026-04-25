@@ -1,0 +1,12 @@
+﻿/**********************************************************/
+/*Lista1 exer5 -                                          */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+char NOM[100];
+char PROF[25];
+int ID;
+float SALARIO;
+
+
+

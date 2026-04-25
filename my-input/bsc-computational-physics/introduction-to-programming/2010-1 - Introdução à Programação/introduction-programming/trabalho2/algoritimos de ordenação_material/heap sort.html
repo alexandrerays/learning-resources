@@ -1,0 +1,1269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html dpffagent_docid="57e61b" dpffagent_readystate="1"><head>
+
+
+<title>Algoritmo Heapsort</title>
+<meta name="Author" content="Paulo Feofiloff">
+<meta name="description" content="Ordenação de um vetor. Desempenho do algoritmo Heapsort.">
+<meta name="keywords" content="heap, ordenacao de vetor, invariantes, documentacao">
+<meta name="language" content="Portuguese">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> 
+<link rel="stylesheet" href="heap%20sort_arquivos/aulas.css" type="text/css">
+</head><body>
+
+
+<div class="left">
+
+<span class="title"><b>Projeto de Algoritmos</b></span><br>
+<table cellpadding="3" cellspacing="0" width="100%">
+<tbody><tr><td class="navig">
+<small>
+<a class="navig" href="http://www.ime.usp.br/%7Epf/algoritmos/index.html">Home</a> 
+&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+<a class="navig" href="http://www.ime.usp.br/%7Epf/algoritmos/prefacio.html">Prefácio</a> 
+&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+<a class="navig" href="http://www.ime.usp.br/%7Epf/algoritmos/livros.html">Livros</a> 
+&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+<a class="navig" href="http://www.ime.usp.br/%7Epf/algoritmos/sitios.html">Sítios WWW</a> 
+&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+<a class="navig" href="http://www.ime.usp.br/%7Epf/algoritmos/idx.html">Índice</a>
+</small>
+</td></tr></tbody></table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1>Heapsort</h1>
+
+
+
+
+<p>Esta página examina um algoritmo sofisticado 
+que rearranja um vetor dado em ordem 
+<a href="http://www.ime.usp.br/%7Epf/algoritmos/aulas/footnotes/crescente.html">crescente</a>.
+Para que a descrição do algoritmo fique mais simples,
+convém que os índices do vetor sejam&nbsp; <tt>1..n</tt>&nbsp;
+e não <tt>0..n-1</tt>, como é usual em&nbsp;C.&nbsp;
+Resumindo, nosso algoritmo 
+
+</p><blockquote>
+rearranja os elementos de um vetor <tt>v[1..n]</tt>
+de tal modo que ele fique em ordem crescente,
+</blockquote>
+
+<p id="williams">ou seja, de tal modo que tenhamos 
+<tt>v[1]</tt> &#8804; 
+<tt>v[2]</tt> &#8804; .&nbsp;.&nbsp;. &#8804; 
+<tt>v[n]</tt>.&nbsp;
+O algoritmo, conhecido como Heapsort, foi inventado por
+J.W.J.&nbsp;Williams&nbsp;
+["Algorithm 232 (heapsort)",
+<i>Communications of the ACM</i>, 7, p.347-348, 1964].
+
+
+
+</p><p>Veja o verbete 
+<a href="http://en.wikipedia.org/wiki/Heapsort"><i>Heapsort</i></a> 
+na Wikipedia.&nbsp;
+Veja também o capítulo&nbsp;14
+do "<a href="http://www.ime.usp.br/%7Epf/algoritmos/livros.html#bentley1">Programming Pearls</a>".
+
+
+
+
+
+</p><h2 id="heap">Heap (árvore binária quase-completa)</h2>
+
+
+
+
+
+<p>O segredo do funcionamento do algoritmo
+é uma estrutura de dados
+conhecida como <a href="http://www.ime.usp.br/%7Epf/algoritmos/aulas/footnotes/heap.html">heap</a> (=&nbsp;monte).
+Um <dfn>max-heap</dfn> é um vetor
+<tt>v[1..m]</tt> tal que 
+<span class="gray">[estou escrevendo <tt>m</tt> e não <tt>n</tt>
+de propósito]</span>:
+
+</p><p class="center">
+<tt>v[f/2]</tt>&nbsp;&nbsp;&#8805;&nbsp;&nbsp;<tt>v[f]</tt>
+
+</p><p>para <tt>f</tt> = <tt>2</tt>,&nbsp;.&nbsp;.&nbsp;.&nbsp;, <tt>m</tt>.&nbsp;
+Aqui, como no resto desta página,
+vamos convencionar que 
+as expressões que figuram como índices de um vetor
+são sempre <i>inteiras</i>.
+Uma expressão da forma "<tt>f/2</tt>"
+significa&nbsp;
+<tt><a href="http://www.ime.usp.br/%7Epf/algoritmos/aulas/footnotes/floor-ceil.html">piso</a>(f/2)</tt>,
+ou seja,
+a <i>parte inteira</i> do quociente de <tt>f</tt> por <tt>2</tt>.
+
+
+
+</p><p>Assim, 
+se <tt>v[1..17]</tt> é um max-heap então, em particular, 
+<tt>v[5]</tt>&nbsp;&#8805;&nbsp;<tt>v[10]</tt> e
+<tt>v[5]</tt>&nbsp;&#8805;&nbsp;<tt>v[11]</tt>:
+
+
+
+
+
+
+<table class="bb" align="center" cellspacing="1">
+<tbody><tr align="center">
+<td width="30"><small><tt>1</tt></small>
+</td><td width="30"><small><tt>2</tt></small>
+</td><td width="30"><small><tt>3</tt></small>
+</td><td width="30"><small><tt>4</tt></small>
+</td><td width="30"><small><tt>5</tt></small>
+</td><td width="30"><small><tt>6</tt></small>
+</td><td width="30"><small><tt>7</tt></small>
+</td><td width="30"><small><tt>8</tt></small>
+</td><td width="30"><small><tt>9</tt></small>
+</td><td width="30"><small><tt>10</tt></small>
+</td><td width="30"><small><tt>11</tt></small>
+</td><td width="30"><small><tt>12</tt></small>
+</td><td width="30"><small><tt>13</tt></small>
+</td><td width="30"><small><tt>14</tt></small>
+</td><td width="30"><small><tt>15</tt></small>
+</td><td width="30"><small><tt>16</tt></small>
+</td><td width="30"><small><tt>17</tt></small>
+</td></tr><tr align="center">
+<td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#f06060" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#f06060" width="30">999
+</td><td bgcolor="#f06060" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td><td bgcolor="#909090" width="30">999
+</td></tr></tbody></table>
+
+
+</p><p>Estranha essa definição de max-heap, não?
+Talvez a coisa fique mais clara se 
+encararmos a seqüência de índices <tt>1..m</tt> 
+como um árvore binária:
+
+</p><ul>
+<li class="space">o índice <tt>1</tt> é a <i>raiz</i> da árvore;
+
+</li><li class="space">o <i>pai</i> de um índice <tt>f</tt> é <tt>f/2</tt>
+(é claro que <tt>1</tt> não tem pai);
+
+</li><li class="space"> o <i>filho esquerdo</i> de um índice <tt>p</tt> é <tt>2p</tt> e 
+o <i>filho direito</i> é <tt>2p+1</tt>&nbsp;
+(é claro que o filho esquerdo só existe se 
+<tt>2p</tt>&nbsp;&#8804;&nbsp;<tt>m</tt>
+e o filho direito só existe se <tt>2p+1</tt>&nbsp;&#8804;&nbsp;<tt>m</tt>).
+</li></ul>
+
+<p>A figura abaixo procura desenhar um vetor <tt>v[1..55]</tt>
+de modo que cada filho fique na 
+"camada" imediatamente inferior à do pai.
+O vetor é definido por <tt>v[i]=i</tt>
+e portanto longe está de ser um max-heap.
+Observe que cada "camada", exceto a última, 
+tem duas vezes mais elementos que a "camada" anterior.
+Com isso, o número de "camadas" de <tt>v[1..m]</tt>
+é exatamente&nbsp;&nbsp; 
+<tt>1</tt>&nbsp;<tt>+</tt>&nbsp;<a href="http://www.ime.usp.br/%7Epf/algoritmos/aulas/docu.html#floor-lg"><tt>lg(m)</tt></a>,&nbsp;
+sendo <tt>lg(m)</tt> o piso de log<sub>2</sub><tt>m</tt>.
+
+
+</p><p>
+<table class="bb" align="center" cellspacing="1">
+<tbody><tr align="center">
+<td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td bgcolor="#ffffff">
+</td><td colspan="2" align="center" bgcolor="#c0c0c0">&nbsp;<tt>1</tt>
+</td><td bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+
+</td></tr><tr align="center">
+<td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>2</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>3</tt>
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+
+</td></tr><tr align="center">
+<td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>4</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>5</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>6</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>7</tt>
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+
+</td></tr><tr align="center">
+<td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>8</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>9</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>10</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>11</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>12</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>13</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>14</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>15</tt>
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+
+</td></tr><tr align="center">
+<td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#ffffff">
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>16</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>17</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>18</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>19</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>20</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>21</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>22</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>23</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>24</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>25</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>26</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>27</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>28</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>29</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>30</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>31</tt>
+
+</td></tr><tr align="center">
+<td colspan="2" bgcolor="#c0c0c0"><tt>32</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>33</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>34</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>35</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>36</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>37</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>38</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>39</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>40</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>41</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>42</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>43</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>44</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>45</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>46</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>47</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>48</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>49</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>50</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>51</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>52</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>53</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>54</tt>
+</td><td colspan="2" bgcolor="#c0c0c0"><tt>55</tt>
+
+</td></tr><tr> 
+
+<td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+</td><td width="9">
+
+</td></tr></tbody></table>
+
+
+
+</p><p>Uma vez entendido o conceito de pai e filho,
+podemos dizer que um vetor é um max-heap se o valor de todo 
+pai é maior ou igual que o valor de qualquer de seus 
+dois filhos
+(onde o <i>valor</i> de um índice <tt>p</tt>
+é <tt>v[p]</tt>).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><h2 class="exr" id="exr1">Exercícios</h2>
+
+<div class="exr">
+<ol start="1">
+
+<li class="exr">
+Mostre que todo vetor decrescente 
+indexado por <tt>1</tt>,<tt>2</tt>,&nbsp;.&nbsp;.&nbsp;.&nbsp; é um max-heap.
+Mostre que a recíproca não é verdadeira.
+
+</li><li class="exr">
+O vetor abaixo é um max-heap?
+
+<p class="center"> 
+<tt>161 41 101 141 71 91 31 21 81 17 16</tt>
+
+
+
+</p></li><li class="exr">
+Escreva uma função que decida se um vetor 
+<tt>v[1..m]</tt> é ou não um max-heap.
+
+
+</li><li class="exr">
+Mostre que <tt>v[1..m]</tt> é um max-heap se e somente se 
+para cada índice <tt>p</tt> tem-se<br>
+   <ol type="a">
+   <li class="sspace">se <tt>2p</tt>&nbsp;&#8804;&nbsp;<tt>m</tt> então 
+       <tt>v[p]</tt>&nbsp;&#8805;&nbsp;<tt>v[2p]</tt>;
+   </li><li class="sspace">se <tt>2p+1</tt>&nbsp;&#8804;&nbsp;<tt>m</tt> então 
+       <tt>v[p]</tt>&nbsp;&#8805;&nbsp;<tt>v[2p+1]</tt>.
+   </li></ol>
+
+
+</li><li class="exr">
+Suponha que <tt>v[1..m]</tt> é um max-heap 
+com <tt>m</tt> = <tt>2<sup>k</sup>-1</tt>.
+Mostre que mais da metade dos elementos do vetor está na
+última "camada" do max-heap, ou seja,
+em&nbsp;&nbsp; 
+<tt>v[2<sup>k-1</sup>.. 2<sup>k</sup>-1]</tt>.
+
+</li></ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>A função peneira</h2>
+
+
+
+
+<p>O coração de qualquer algoritmo que manipule um max-heap
+é uma  função que recebe um vetor arbitrário <tt>v[1..m]</tt>
+e um índice <tt>p</tt>
+
+</p><p class="center">
+e faz <tt>v[p]</tt> "descer" para sua posição "correta".
+
+
+</p><p>Como se faz isso?
+A idéia é óbvia.
+Se <tt>v[p]</tt>&nbsp;&#8805;&nbsp;<tt>v[2p]</tt> e 
+<tt>v[p]</tt>&nbsp;&#8805;&nbsp;<tt>v[2p+1]</tt>
+então não é preciso fazer nada.
+Se <tt>v[p]</tt> &lt; <tt>v[2p]</tt> e 
+<tt>v[2p]</tt>&nbsp;&#8805;&nbsp;<tt>v[2p+1]</tt>
+então basta trocar <tt>v[p]</tt> com <tt>v[2p]</tt> e 
+depois fazer <tt>v[2p]</tt> "descer" 
+para sua posição "correta".
+Não é difícil imaginar o que se deve fazer no terceiro caso.
+
+</p><p>Eis um exemplo com <tt>p</tt>=<tt>1</tt>.
+Cada linha da tabela é uma "foto" do vetor no início de uma iteração.
+
+
+
+
+
+<table class="cb" align="center" cellspacing="1">
+<tbody><tr align="center">
+<td bgcolor="#c0c0c0" width="30">85
+</td><td bgcolor="#c0c0c0" width="30">99
+</td><td bgcolor="#c0c0c0" width="30">98
+</td><td bgcolor="#c0c0c0" width="30">97
+</td><td bgcolor="#c0c0c0" width="30">96
+</td><td bgcolor="#c0c0c0" width="30">95
+</td><td bgcolor="#c0c0c0" width="30">94
+</td><td bgcolor="#c0c0c0" width="30">93
+</td><td bgcolor="#c0c0c0" width="30">92
+</td><td bgcolor="#c0c0c0" width="30">91
+</td><td bgcolor="#c0c0c0" width="30">90
+</td><td bgcolor="#c0c0c0" width="30">89
+</td><td bgcolor="#c0c0c0" width="30">87
+</td><td bgcolor="#c0c0c0" width="30">86
+</td></tr><tr>
+  <td bgcolor="#ffffff">&nbsp;
+</td></tr><tr align="center">
+<td bgcolor="#f0a0a0" width="30">99
+</td><td bgcolor="#f0a0a0" width="30">85
+</td><td bgcolor="#c0c0c0" width="30">98
+</td><td bgcolor="#c0c0c0" width="30">97
+</td><td bgcolor="#c0c0c0" width="30">96
+</td><td bgcolor="#c0c0c0" width="30">95
+</td><td bgcolor="#c0c0c0" width="30">94
+</td><td bgcolor="#c0c0c0" width="30">93
+</td><td bgcolor="#c0c0c0" width="30">92
+</td><td bgcolor="#c0c0c0" width="30">91
+</td><td bgcolor="#c0c0c0" width="30">90
+</td><td bgcolor="#c0c0c0" width="30">89
+</td><td bgcolor="#c0c0c0" width="30">87
+</td><td bgcolor="#c0c0c0" width="30">86
+</td></tr><tr>
+  <td bgcolor="#ffffff">&nbsp;
+</td></tr><tr align="center">
+<td bgcolor="#c0c0c0" width="30">99
+</td><td bgcolor="#f0a0a0" width="30">97
+</td><td bgcolor="#c0c0c0" width="30">98
+</td><td bgcolor="#f0a0a0" width="30">85
+</td><td bgcolor="#c0c0c0" width="30">96
+</td><td bgcolor="#c0c0c0" width="30">95
+</td><td bgcolor="#c0c0c0" width="30">94
+</td><td bgcolor="#c0c0c0" width="30">93
+</td><td bgcolor="#c0c0c0" width="30">92
+</td><td bgcolor="#c0c0c0" width="30">91
+</td><td bgcolor="#c0c0c0" width="30">90
+</td><td bgcolor="#c0c0c0" width="30">89
+</td><td bgcolor="#c0c0c0" width="30">87
+</td><td bgcolor="#c0c0c0" width="30">86
+</td></tr><tr>
+  <td bgcolor="#ffffff">&nbsp;
+</td></tr><tr align="center">
+<td bgcolor="#c0c0c0" width="30">99
+</td><td bgcolor="#c0c0c0" width="30">97
+</td><td bgcolor="#c0c0c0" width="30">98
+</td><td bgcolor="#f0a0a0" width="30">93
+</td><td bgcolor="#c0c0c0" width="30">96
+</td><td bgcolor="#c0c0c0" width="30">95
+</td><td bgcolor="#c0c0c0" width="30">94
+</td><td bgcolor="#f0a0a0" width="30">85
+</td><td bgcolor="#c0c0c0" width="30">92
+</td><td bgcolor="#c0c0c0" width="30">91
+</td><td bgcolor="#c0c0c0" width="30">90
+</td><td bgcolor="#c0c0c0" width="30">89
+</td><td bgcolor="#c0c0c0" width="30">87
+</td><td bgcolor="#c0c0c0" width="30">86
+</td></tr></tbody></table>
+
+
+
+</p><p>Eis uma função iterativa que faz o serviço.
+
+A variável <tt>f</tt> é sempre um filho de <tt>p</tt>;
+no início de cada iteração, <tt>f</tt> é ajustado de modo a ser  
+o filho de maior valor de&nbsp;<tt>p</tt>.
+
+
+
+</p><pre class="hlt"><span class="comm">// Recebe p em 1..m e rearranja o vetor v[1..m] de modo 
+// que o "subvetor" cuja raiz é p seja um max-heap.
+// Supõe que os "subvetores" cujas raízes são filhos
+// de p já são max-heaps.</span>
+
+void peneira (int p, int m, int v[])
+{
+   int f = 2*p, x;
+   while (f &lt;= m) {
+      if (f &lt; m &amp;&amp; v[f] &lt; v[f+1])  ++f;
+      <span class="comm">// f é o filho "mais valioso" de p</span>
+      if (v[f/2] &gt;= v[f]) break;
+      x = v[f/2], v[f/2] = v[f], v[f] = x;
+      f *= 2;
+   }
+}
+</pre>
+
+<p>A seguinte implementação é um pouco melhor, 
+   porque faz menos trocas e executa a divisão <tt>f/2</tt> uma só vez:
+
+
+
+
+</p><pre class="hlt">void <b>peneira</b> (int p, int m, int v[])
+{ 
+   int f = 2*p, x = v[p];
+   while (f &lt;= m) {
+      if (f &lt; m &amp;&amp; v[f] &lt; v[f+1])  ++f;
+      if (x &gt;= v[f]) break;
+      v[p] = v[f];
+      p = f, f = 2*p;
+   }
+   v[p] = x;
+}
+</pre>
+
+
+
+
+
+
+
+
+<h2>A função peneira: desempenho</h2>
+
+
+
+<p>A função <tt>peneira</tt> é muito rápida.
+O consumo de tempo é proporcional ao número de iterações,
+e esse numero não passa de 
+
+</p><p class="center">
+<tt>log<sub>2</sub>m</tt>
+
+</p><p>
+pois o valor de <tt>f</tt> pelo menos dobra a cada iteração.
+
+
+
+
+
+
+
+
+
+</p><h2 class="exr" id="exr2">Exercícios</h2>
+
+<div class="exr">
+<ol start="6">
+
+<li class="exr">
+A seguinte alternativa para a função <tt>peneira</tt> 
+funciona <a href="http://www.ime.usp.br/%7Epf/algoritmos/aulas/footnotes/algoritmocorreto.html">corretamente</a>?
+<pre class="ind">void peneira (int p, int m, int v[]) { 
+   int x, f;                        
+   for (f = 2*p; f &lt;= m; f *= 2) {
+      if (f &lt; m &amp;&amp; v[f] &lt; v[f+1])  ++f;
+      p = f/2;
+      if (v[p] &gt;= v[f]) break;
+      x = v[p], v[p] = v[f], v[f] = x;
+   }
+}
+</pre>
+
+
+</li><li class="exr">
+Escreva uma versão recursiva da função <tt>peneira</tt>.
+
+
+</li><li class="exr">
+Por que a seguinte implementação de <tt>peneira</tt> não funciona?
+
+<pre class="ind">void peneira (int p, int m, int v[]) {
+    int x;
+    int f = 2*p;
+    while (f &lt;= m) {
+       if (v[p] &lt; v[f]) {
+          x = v[p], v[p] = v[f], v[f] = x;
+          p = f;
+          f = 2*p;
+       }
+       else {
+          if (f &lt; m &amp;&amp; v[p] &lt; v[f+1]) {
+             x = v[p], v[p] = v[f+1], v[f+1] = x;
+             p = f+1;
+             f = 2*p;
+          }
+          else break;
+       }
+    }
+}
+</pre>
+
+</li></ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<h2>Por que um heap é útil?</h2>
+
+<p>Por que um max-heap é uma estrutura de dados tão poderosa?
+Suponha que <tt>v[1..m]</tt> é um max-heap;
+então
+
+</p><ol type="a">
+<li class="ssspace">
+a pergunta "qual o maior elemento de vetor?"
+pode ser respondida instantaneamente: 
+o maior elemento do vetor é <tt>v[1]</tt>;
+
+</li><li class="ssspace">
+se o valor de <tt>v[1]</tt> for alterado,
+o max-heap pode ser restabelecido muito rapidamente:
+a operação <tt>peneira</tt>&nbsp;<tt>(1,m,v)</tt> não demora mais que 
+<tt>lg(m)</tt> para fazer o serviço;
+
+</li><li class="ssspace">
+um vetor <tt>v[1..m]</tt> arbitrário
+
+pode ser transformado em um max-heap muito rapidamente:
+o comando
+
+<pre class="ind">   for (p = m/2; p &gt;= 1; --p)  peneira (p, m, v);
+</pre>
+
+
+<p class="noindent">faz o serviço 
+em tempo proporcional a&nbsp; <tt>m</tt>.&nbsp;
+(É fácil ver que o consumo de tempo 
+é limitado por <tt>(m</tt>&nbsp;<tt>lg(m))/2</tt>,
+pois o tempo gasto em cada uma das <tt>m/2</tt> 
+iterações é limitado por <tt>lg(m)</tt>.&nbsp;
+É um pouco mais difícil verificar que o tempo é, na verdade,
+limitado por <tt>m</tt> apenas.)
+
+</p></li></ol>
+
+
+
+
+
+
+
+
+
+<h2 class="exr" id="exr3">Exercícios</h2>
+
+<div class="exr">
+<ol start="9">
+
+<li class="exr">
+Mostre que o fragmento de programa abaixo
+faz no máximo <tt>m</tt> comparações entre elementos do vetor.
+<pre class="ind">   for (p = m/2; p &gt;= 1; --p)  peneira (p, m, v);
+</pre>
+
+
+</li><li class="exr">
+O fragmento de programa abaixo 
+transforma um vetor arbitrário <tt>v[1..m]</tt> em max-heap?
+<pre class="ind">   for (p = 1; p &lt;= m/2; ++p)  peneira (p, m, v);
+</pre>
+
+
+</li><li class="exr">
+Critique a seguinte idéia:
+para transformar um vetor arbitrário em max-heap,
+basta colocá-lo em ordem decrescente.
+
+
+</li><li class="exr">
+Escreva uma função <tt>ff</tt> que receba 
+um vetor <tt>v</tt> e um índice <tt>k</tt> tais que&nbsp;
+<tt>v[1..k-1]</tt>&nbsp; é um max-heap
+e transforme&nbsp; <tt>v[1..k]</tt>&nbsp; em max-heap.
+Sua função deve fazer no máximo <tt>2</tt>&nbsp;<tt>lg(k)</tt> 
+comparações entre elementos do vetor.&nbsp;&nbsp;
+Agora use <tt>ff</tt> para 
+construir uma função que transforme qualquer vetor
+<tt>v[1..m]</tt> em max-heap.
+Sua função deve fazer no máximo&nbsp;
+<tt>2</tt>&nbsp;<tt>m</tt>&nbsp;<tt>lg(m)</tt>&nbsp;
+comparações entre elementos do vetor.
+
+</li></ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<h2>O algoritmo heapsort</h2>
+
+<p>Não é difícil juntar tudo que dissemos acima
+para obter um algoritmo que coloque <tt>v[1..n]</tt>
+em ordem crescente.
+
+</p><pre class="hlt"><span class="comm">// Rearranja os elementos do vetor v[1..n] 
+// de modo que fiquem em ordem crescente</span>
+
+void <b>heapsort</b> (int n, int v[])
+{
+   int p, m, x;
+   for (p = n/2; p &gt;= 1; --p)
+      peneira (p, n, v);
+   for (m = n; m &gt;= 2; --m) {
+      x = v[1], v[1] = v[m], v[m] = x;
+      peneira (1, m-1, v);
+   }
+}
+</pre>
+
+
+<p>O comando <tt>for</tt> transforma o vetor em um max-heap
+recorrendo cerca de <tt>n/2</tt> vezes à 
+função <tt>peneira</tt>.
+Feito isso, temos um processo iterativo
+controlado pelo segundo <tt>for</tt>.
+No início de cada iteração valem os seguinte invariantes: 
+
+</p><ul>
+<li class="space">
+o vetor <tt>v[1..n]</tt> é uma permutação do vetor original,
+</li><li class="space">
+o vetor <tt>v[1..m]</tt> é um max-heap,<br>
+</li><li class="space">
+<tt>v[1..m]</tt>&nbsp;&nbsp;&#8804;&nbsp;&nbsp;<tt>v[m+1..n]</tt> e<br>
+</li><li class="space">
+o vetor <tt>v[m+1..n]</tt> está em ordem crescente.
+</li></ul>
+
+<p>É claro que <tt>v[1..n]</tt> estará em ordem crescente
+quando <tt>m</tt> for igual a <tt>1</tt>.
+
+<table class="ca" align="center">
+<tbody><tr align="center">
+<td><tt>1</tt>
+</td><td colspan="7" align="center"><font color="#800000">max-heap</font>
+</td><td><tt>m</tt>
+</td><td><tt></tt>
+</td><td colspan="3" align="center"><font color="#4040a0">crescente</font>
+</td><td><tt>n</tt>
+</td></tr><tr align="center">
+<td bgcolor="#f09090" width="30">888
+</td><td bgcolor="#f09090" width="30">777
+</td><td bgcolor="#f09090" width="30">666
+</td><td bgcolor="#f09090" width="30">555
+</td><td bgcolor="#f09090" width="30">444
+</td><td bgcolor="#f09090" width="30">333
+</td><td bgcolor="#f09090" width="30">222
+</td><td bgcolor="#f09090" width="30">111
+</td><td bgcolor="#f09090" width="30">000
+</td><td bgcolor="#6060d0" width="30">999
+</td><td bgcolor="#6060d0" width="30">999
+</td><td bgcolor="#6060d0" width="30">999
+</td><td bgcolor="#6060d0" width="30">999
+</td><td bgcolor="#6060d0" width="30">999
+</td></tr><tr>
+<td colspan="9" align="center"><font color="#800000">
+             elementos pequenos</font>
+</td><td colspan="5" align="center"><font color="#4040a0">
+             elementos grandes</font>
+</td></tr></tbody></table>
+
+
+
+
+</p><h2>Heapsort: desempenho</h2>
+
+
+
+<p>Quanto tempo o <tt>heapsort</tt> leva para fazer o serviço?
+O tempo é proporcional ao número de comparações entre 
+elementos do vetor,
+e esse número não passa de  
+
+</p><p class="center">
+<tt>3</tt>&nbsp;<tt>n</tt>&nbsp;<tt>log<sub>2</sub>n</tt>&nbsp;,
+
+</p><p>mesmo no pior caso.
+De fato,
+o primeiro <tt>for</tt> constrói o max-heap inicial
+e faz no máximo&nbsp; <tt>n</tt>&nbsp;<tt>lg(n)</tt>&nbsp;
+comparações entre elementos do vetor.&nbsp;
+(Uma análise mais cuidadosa revela que 
+o número de comparações não passa de <tt>n</tt>).&nbsp;
+O&nbsp;segundo <tt>for</tt> executa cerca de <tt>n</tt>
+chamadas de <tt>peneira</tt>
+e cada uma dessas chamadas 
+faz no máximo&nbsp; <tt>2</tt>&nbsp;<tt>lg(n)</tt>&nbsp;
+comparações entre elementos do vetor.
+
+
+
+
+
+
+</p><h2>Heapsort: animações</h2>
+
+<p>Veja applets de animação do algoritmo:
+</p><ul>
+
+
+<li class="space"><a href="http://www.cs.ubc.ca/spider/harrison/Java/sorting-demo.html"><i>Sorting Algorithms</i></a>
+na Universidade de British Columbia
+
+</li><li class="space">
+<a href="http://cg.scs.carleton.ca/%7Emorin/misc/sortalg/"><i>Sorting Algorithms</i></a>,
+página de Pat Morin 
+na Universidade de Carlton, Canadá
+
+
+
+</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="exr" id="exr4">Exercícios</h2>
+
+<div class="exr">
+<ol start="13">
+
+<li class="exr">
+Use o <tt>heapsort</tt> para ordenar o vetor&nbsp;
+<tt> 16 15 14 13 12 11 10 9 8 7 6 5 4</tt>.
+
+
+
+</li><li class="exr">
+Suponha que o vetor <tt>v[1..n]</tt> é um max-heap.
+    O seguinte fragmento de código rearranja o vetor em ordem
+    crescente?
+<pre class="ind">   for (m = n; m &gt;= 2; --m) {
+      int x = v[1];
+      for (j = 1; j &lt; m; ++j) v[j] = v[j+1];
+      v[m] = x;
+   }
+</pre>
+
+
+
+</li><li class="exr">
+Implemente um max-heap com ponteiros.
+Cada célula terá um <tt>valor</tt> e três ponteiros:
+um aponta o pai da célula, outro aponta o filho direito e 
+outro aponta o filho esquerdo.
+Escreva uma versão da função <tt>peneira</tt> para um max-heap implementado com
+ponteiros.
+
+
+</li><li class="exr">
+Suponha que <tt>v[1..m]</tt> é um max-heap.
+Suponha que <tt>i</tt> &lt; <tt>j</tt> e 
+<tt>v[i]</tt> &lt; <tt>v[j]</tt>.
+Se os valores de <tt>v[i]</tt> e <tt>v[j]</tt>
+forem trocados, <tt>v[1..m]</tt> continuará sendo um max-heap?&nbsp;
+Repita o exercício sob a hipótese 
+<tt>v[i]</tt> &gt; <tt>v[j]</tt>.
+
+
+</li><li class="exr">
+Escreva uma função <tt>HS</tt> que receba um max-heap <tt>v[1..n]</tt>
+e rearranje o vetor de modo que ele fique em ordem crescente.
+Tire proveito de que o vetor dado não é arbitrário.&nbsp;
+<span class="smallcaps">Sugestão</span>:
+Digamos que um vetor <tt>v[1..m]</tt> é um <i>quase-max-heap</i> se
+
+<p class="center">
+<tt>v[f/2]</tt>&nbsp;&#8805;&nbsp;<tt>v[f]</tt>
+&nbsp; para <tt>f</tt> = <tt>4</tt>,&nbsp;.&nbsp;.&nbsp;.&nbsp;, <tt>m</tt>.
+
+
+
+</p><p class="noindent">Escreva uma função <tt>H</tt> que receba um 
+quase-max-heap <tt>v[1..m]</tt> e transforme-o em um max-heap.
+(Basta fazer uma versão ligeiramente especializada
+de <tt>peneira</tt>.)
+Use <tt>H</tt> para escrever&nbsp;<tt>HS</tt>.
+
+    
+</p></li><li class="exr">
+Escreva uma função que rearranje um vetor 
+<tt>v[1..n]</tt> de modo que ele fique 
+em ordem <i>de</i>crescente.&nbsp;
+<span class="smallcaps">Sugestão</span>: 
+Adapte a definição de max-heap
+para o problema em questão. Reescreva 
+a função <tt>peneira</tt>.  
+
+
+</li></ol>
+</div>
+
+
+
+
+
+
+
+
+
+<h2 id="stolfi">Uma versão mais rápida do Heapsort</h2>
+
+
+
+
+
+<p>A seguinte versão do Heapsort,
+um pouco diferente da examinada acima,
+é conhecida com Bottom-Up-Heapsort:
+
+</p><pre class="hlt"><span class="comm">// Rearranja os elementos do vetor v[1..n] 
+// de modo que fiquem em ordem crescente</span>
+
+void <b>bottom_up_heapsort</b> (int n, int v[])
+{
+   int m, f, max, t;
+   constroi_heap (n, v);
+   for (m = n; m &gt; 1; m--) {
+      max = v[1];
+      f = 2;
+      while (f &lt;= m) {
+         if (f &lt; m &amp;&amp; v[f] &lt; v[f+1]) ++f;
+         v[f/2] = v[f];
+         f *= 2;
+      }
+      f = f/2;
+      if (f &lt; m) {
+         t = v[f], v[f] = v[m], v[m] = t;
+         while (f &gt; 1 &amp;&amp; v[f/2] &lt; v[f]) { 
+            t = v[f], v[f] = v[f/2], v[f/2] = t;
+            f = f/2;
+         }
+      }
+      v[m] = max;
+   }
+}
+</pre>
+
+
+<p>No começo de cada iteração do <tt>for</tt>,
+o vetor <tt>v[1..m]</tt> é um heap que contém os elementos pequenos e
+o vetor <tt>v[m+1..n]</tt> é crescente e contém os elementos grandes.
+
+
+</p><pre class="hlt">
+<span class="comm">// Recebe um vetor v[1..n] e transforma o vetor em 
+// um max-heap</span>
+
+void <b>constroi_heap</b> (int n, int v[])
+{
+   int m, f, t;
+   for (m = 1; m &lt; n; m++) {
+      f = m+1;
+      while (f &gt; 1 &amp;&amp; v[f/2] &lt; v[f]) { 
+         t = v[f/2], v[f/2] = v[f], v[f] = t;
+         f = f/2;
+      }
+   }
+}
+</pre>
+
+<p>No início de cada iteração do <tt>for</tt>, 
+o vetor <tt>v[1..m]</tt> é um heap.&nbsp;&nbsp;
+No começo de cada iteração do <tt>while</tt>,
+todos os índices em <tt>1..m+1</tt> satisfazem a propriedade do max-heap
+exceto talvez <tt>v[f]</tt> grande demais para <tt>v[f/2]</tt>.
+
+
+
+
+</p><p>I. Wegener e J. Stolfi observaram que esta versão Heapsort
+faz, em média, 
+duas vezes menos comparações entre elementos do vetor
+que a versão discutida acima.
+(Mas isso não significa, necessariamente,
+que ela seja duas vezes mais rápida 
+se levarmos em conta as outras operações, como as trocas, por exemplo.
+
+
+
+
+
+
+</p><h2 class="exr">Exercício</h2>
+
+<div class="exr">
+<ol start="19">
+
+<li class="exr">
+Verifique que a versão abaixo do <tt>bottom_up_heapsort</tt>
+é equivalente à discutida acima.
+(Ela é um pouco mais rápida pois faz a divisão "<tt>f/2</tt>" uma só vez
+e reduz o número de trocas):
+<pre class="ind">void botom_up_heapsort (int n, int v[]) {
+   int m, p, f, max, t;
+   constroi_heap (n, v);
+   for (m = n; m &gt; 1; m--) {
+      max = v[1];
+      p = 1, f = 2;
+      while (f &lt;= m) {
+         if (f &lt; m &amp;&amp; v[f] &lt; v[f+1]) ++f;
+         v[p] = v[f];
+         p = f, f = 2*p;
+      }
+      f = p;
+      if (f &lt; m) {
+         t = v[m]; 
+         while (f &gt; 1 &amp;&amp; v[p=f/2] &lt; t) { 
+            v[f] = v[p];
+            f = p;
+         }
+         v[f] = t;
+      }
+      v[m] = max;
+   }
+}
+void constroi_heap (int n, int v[]) {
+   int m, p, f, t;
+   for (m = 1; m &lt; n; m++) {
+      f = m+1;
+      t = v[f];
+      while (f &gt; 1 &amp;&amp; v[p = f/2] &lt; t) {
+         v[f] = v[p];
+         f = p;
+      }
+      v[f] = t;
+   }
+}
+</pre>
+
+
+
+
+</li></ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>&nbsp;
+</p><hr>
+<small>
+Veja <a href="http://www.cprogramming.com/tutorial/computersciencetheory/heapsort.html">Heapsort no Cprogramming.com</a>
+</small>
+
+
+
+<div class="left">
+<hr>
+<small>
+URL of this site: www.ime.usp.br/~pf/algoritmos/<br>
+
+1998 |
+
+Last modified: Fri Jan  8 10:56:45 BRST 2010
+
+<br>
+<em>Paulo Feofiloff</em><br>
+<em>IME-USP</em>
+</small>
+</div>
+
+
+
+
+<p class="right">
+<a href="http://validator.w3.org/check?uri=http://www.ime.usp.br/%7Epf/algoritmos/aulas/hpsrt.html">
+<img src="heap%20sort_arquivos/valid-html401.png" alt="Valid HTML 4.01 Transitional" border="0" height="31" width="88"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://jigsaw.w3.org/css-validator/validator?uri=http://www.ime.usp.br/%7Epf/algoritmos/aulas/hpsrt.html">
+<img style="border: 0pt none ; width: 88px; height: 31px;" src="heap%20sort_arquivos/vcss.png" alt="Valid CSS!"></a>
+
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+</p><p>&nbsp;
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="heap%20sort_arquivos/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10925343-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</p></body></html>

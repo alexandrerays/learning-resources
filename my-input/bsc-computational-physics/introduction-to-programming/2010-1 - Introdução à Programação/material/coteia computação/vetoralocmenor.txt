@@ -1,0 +1,49 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+
+//Este programa determina o menor elemento de um vetor
+
+int menor(int *vet, int n);
+
+int main( ){
+    int *vet;
+    int i, n;
+ // reserva de memoria para vetor de forma dinamica
+     printf(" entre com o no. de comp. do vetor\n");
+     scanf("%d",&n);   
+     
+     vet =  (int *) malloc(n*sizeof(int));
+      if (vet == NULL){
+         printf(" nao foi possivel alocar memoria\n");
+         exit(0);
+         }        
+        
+ // leitura do vetor   
+    for (i=0; i<n; i++){
+        printf(" entre com um elemento do vetor\n");
+        scanf("%d", &vet[i]); 
+        }
+ // impressao do vetor       
+    for (i=0; i<n; i++){
+        printf("%d\n", vet[i]); 
+        }
+ // impressao do menor elemento do vetor
+    printf(" o menor elemento do vetor lido = %d",vet[menor(vet,n)]);       
+ 
+ // tecle enter para terminar
+    getch();
+} //  fim do principal
+
+// procedimento que determina o menor elemento
+ int menor(int *vet, int n){
+     int aux_menor, i;          
+     // inicializar a var. aux_menor com o 1o. elem. do vetor
+     aux_menor = 0;
+     for (i=1;i<n; i++) {
+         if (vet[i] < vet[aux_menor]){
+             aux_menor=i;
+             }
+     }
+     return aux_menor;
+}   

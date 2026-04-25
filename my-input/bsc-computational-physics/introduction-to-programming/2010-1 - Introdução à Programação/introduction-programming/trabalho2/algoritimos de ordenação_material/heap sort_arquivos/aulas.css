@@ -1,0 +1,428 @@
+/* 
+ALGORITMOS/algoritmos/aulas/aulas.css
+large body margin-left
+negative margin-left in h1, h2
+*/
+BODY {
+   background-color: #ffffff;
+   color: #002050;
+   color: #000000;
+   margin-left: 9%; /* nothing else dependes on this */
+   margin-right: 6%; /* nothing else dependes on this */
+   /* font-family: sans-serif; */
+   font-size: 100%; /*some say this helps MS-IE scale fonts correctly*/
+   /* text-align: justify; */
+}
+a:link {
+   color: #0000ff;
+   /* text-decoration: none; */
+}
+a:visited {
+   /* color: #4000ff; */
+   color: #0000f0;
+   text-decoration: none;
+}
+a:hover { /* Must come after :link and :visited */
+   color: red;
+   text-decoration: underline;
+}
+a:active {
+   color: red;
+   text-decoration: underline;
+}
+a.name {
+   color: #000000;
+   text-decoration: none;
+}
+acronym {
+   color: blue;
+   /* text-decoration: underline; */
+}
+acronym:hover {
+   color: red;
+}
+
+
+/*----- begin navigation panel -----*/
+a.navig:link {
+   color: white;
+   /* color: #ddb0ff; */
+   text-decoration: underline;
+}
+a.navig:visited {
+   color: white;
+   /* color: #000820; */
+   /* color: #ddddff; */
+   text-decoration: underline;
+}
+a.navig:hover {
+   color: red;
+}
+a.navig:active {
+   color: red;
+}
+td.navig {
+   /* background: #4060c0; */
+   /* background: #6060d0; purple; out of question */
+   /* background: #003357; */
+   /* background: #4060c0; */
+   /* background: #205080; */
+   background: #2040a0; /* as in livros.html */
+   /* background: #5080ff; */ /* too brilliant */
+   /* background: #3080e0; */
+   color: #ffffff; 
+   /*color: #001040;*/
+   /* color: #ddb0ff; */
+   /* font-family: sans-serif; */
+   font-size: 87%; /*same as small; because of MS-IE*/
+   /* font-weight: bold; */
+   text-align: center;
+}
+span.title {
+   /* color: #3060e0; */ /* same as td.navig background */
+   color: #2040a0; /* same as td.navig background */
+   font-size: 87%; /*same as small; because of MS-IE*/
+ /*font-weight: bold; may not work in Windows */
+}
+/*------ end navigation -------*/
+
+/** A few pixels shorter, but it works (in Mozilla and MSExplorer. 
+    There are more urgent things to change, though...
+table.nav {
+   padding: 1em;
+   width: 100%;
+}***/
+
+
+
+h1 {
+   /* margin-left: -5%; body margin-left is 9% */
+   margin-left: -30px;
+   margin-top: 1.5em;
+   margin-bottom: 1em;
+/* programming-challenges bgcolor=#7ed5f7; */
+   color: #5080ff;  /* not bad */
+   color: #3080e0;  /* exactly as td.navig background */
+   color: #70b0ff; 
+   color: #ff6633;  /* nice orange color */
+   color: #2040a0; /* exactly as td.navig background */
+/* font-family: sans-serif, helvetica; */
+}
+h2 {
+   /* margin-left: -5%; body margin-left is 9% */
+   margin-left: -30px;
+   margin-top: 1.5em;
+   margin-bottom: 1em;
+   color: #70b0ff;  /* pale blue: was like that for a long time */
+   color: #ff6633;  /* orange */
+   color: #ff8040;  /* pale orange */
+   color: #d05010;  /* brown-orange */
+   color: #5080ff; /* not bad */
+   /* font-family: sans-serif, helvetica; */
+}
+h3 {
+/* margin-left: -3%; body margin-left is 9% */
+   margin-top: 1.5em;
+   margin-bottom: 1em;
+/* color: #5080ff; not bad */
+   color: #70b0ff;
+/* font-family: sans-serif, helvetica; */
+}
+span.paragraph {
+   font-weight: bold;
+   color: #000040; /* dark blue */
+}
+
+p.center {
+   text-align: center;
+}
+p.right {
+   text-align: right;
+}
+div.left {
+   width: 105%; /* 100 plus body margin-left */
+/* margin-left: -5%; same as that of h1 */
+   margin-left: -30px; /* same as that of h1 */
+}
+
+/* Exercises OLD
+h4.lnk2exr {
+   margin-top: 1.5em;
+   margin-bottom: 0em;
+   margin-left: 0em;
+   margin-right: 0em;
+   text-align: right; 
+} 
+*/ 
+/* Exercises New
+h3.lnk2exr {
+   margin-left: -3%;
+   margin-top: 1.5em;
+   margin-bottom: 1em;
+   color: #5080ff; ((not bad))
+   color: #70b0ff;
+}
+*/
+/* exercises
+td.lnk2exr {
+   background: #70a0ff;
+   color: #ffffff;
+   text-decoration: underline;
+}
+*/
+
+
+/***
+hr.left {
+   width: 120%; [[100 plus body margin-left???]]
+   margin-left: -10%; [[ same as that of h1??? ]]
+}
+***/
+
+/******* Nice, but too gay
+h2.bg {
+   background-color: #b0d0ff;
+   padding: 0em;
+   margin-top: 2em;
+   margin-bottom: 0.5em;
+   margin-left: 0em;
+   margin-right: 0em;
+}
+********************/
+
+
+p.noindent { /* within a <li> */
+   margin-left: 0em;
+}
+/* Does nothing, but is a convenient mark of <p> within <li> */
+
+dfn {
+   color: #000000;
+   /* color: #aa0000; */ /* red */
+   font-style: normal;
+   font-weight: bold;
+   background-color: #ffffb0;
+}
+span.dfnnoitalic {
+   color: #000000;
+   /*color: #aa0000;*/
+   font-weight: bold;
+   padding-left: 0.7em;
+   padding-right: 0.7em;
+   background-color: #ffffb0;
+}
+span.smallcaps {
+   font-variant: small-caps;
+}
+div.small {
+   font-size: 87%; /*same as small; because of MS-IE*/
+}
+p.red {
+   color: red;
+}
+span.red {
+   color: red;
+   /* font-weight: bold; */
+}
+span.blood {
+   color: #aa0000;
+}
+span.blue {
+   color: blue;
+}
+span.hide {
+   display: inline;
+/* display: none;*/
+/* font-style: italic;*/
+   color: black;
+   background-color: #d0ffd0;
+}
+p.hide {
+   display: block;
+/* display: none;*/
+/* font-style: italic; */
+   color: black;
+   background-color: #d0ffd0;
+}
+div.hide {
+   display: block;
+/* display: none;*/
+/* font-style: italic; */
+   color: black;
+   background-color: #d0ffd0;
+}
+pre.hide {
+   font-size: 87%; /*same as small; because of MS-IE*/
+   color: black;
+   background-color: #d0ffd0;
+}
+span.invis {
+   visibility: hidden;
+}
+span.gray { /* comments in text */
+   color: gray;
+   /* color: #666666; */
+   /* background: white; */
+}
+span.comm { /* comment in code */
+   /* color: #999999; */
+   color: gray;
+   /* background-color: #ffffff; */
+}
+span.ustress { /* underlined stress */
+   color: #600000;
+   /* text-decoration: underline; */
+   font-style: italic; /* oblique = same effect*/
+}
+span.stress { /* dicionario */
+   /* color: #0000c0; blue */
+   color: #702000;
+   font-style: italic;
+}
+
+p.epigrafe {
+   text-align: right;
+   /* color: #703000; */
+   color: #2040c0;
+}
+a.translate:link {
+   color: #2040c0; /* ordinary epigrafe color*/
+   text-decoration: none;
+}
+a.translate:visited {
+   color: #2040c0; /* ordinary epigrafe color*/
+   text-decoration: none;
+}
+a.translate:hover { /* Must come after :link and :visited */
+   /* color: #888888; gray */
+   color: red;
+}
+a.translate:active {
+   color: red;
+   text-decoration: underline;
+}
+span.epigrafesignature {
+   color: black;
+}
+
+
+/* ***************************
+Funciona mal no MS Explorer porque não reconhece font-family default 
+Funciona bem no Mozilla
+pre.pseudocode { 
+   letter-spacing: 0pt;
+   white-space: pre;     ((não faz diferença ))
+   margin-top: 1.5em;
+   margin-bottom: 1.5em;
+   margin-left: 2.5em;
+   margin-right: 5em;
+   font-family: default, sans-serif, Arial, Helvetica;
+   font-size: 101%; 
+}
+************************ */
+
+li.space {
+  margin-top: 0.2em;
+}
+li.sspace {
+  margin-top: 0.5em;
+}
+li.ssspace {
+  margin-top: 1em;
+}
+
+tt, pre {
+   font-size: 90%; /*for MS-IE*/
+}
+pre.ind { /* indented, as in blockquote */
+   white-space: pre;
+   font-size: 90%;
+   margin-top: 1em;
+   margin-bottom: 1em;
+   margin-left: 2.7em;
+   margin-right: 2em;
+   line-height: 110%;
+}
+pre.hlt { /* yellow background */
+   white-space: pre;
+   font-size: 90%;
+   background-color: #ffffd6;
+   padding: 8px;
+   margin-top: 1.5em;
+   margin-bottom: 1.5em;
+   margin-left: 2.5em;
+   margin-right: 5em;
+   line-height: 120%;
+}
+
+table.aa {
+   margin-top: 0.5em;
+   margin-bottom: 0.5em;
+}
+table.ab {
+   margin-top: 0.5em;
+   margin-bottom: 1em;
+}
+table.ba {
+   margin-top: 1em;
+   margin-bottom: 0.5em;
+}
+table.bb {
+   margin-top: 1em;
+   margin-bottom: 1em;
+}
+table.ca {
+   margin-top: 1.0em;
+   margin-bottom: 0.0em;
+}
+table.cb {
+   margin-top: 1.5em;
+   margin-bottom: 1em;
+}
+
+table.cw { /* code wrapper; I will not use this */
+   margin-top: 1em;
+   margin-bottom: 1em;
+   margin-left: 3em;
+   background: #ffffd6;
+   padding: 2em;
+}
+
+div.exr {
+   margin-top: 0em;
+   /* margin-left: -1.5%; */
+   margin-left: -5px;
+   background-color: #e8e8f0;
+   /* background-color: #f0f0f8; */
+   /* padding-left: 0.5em; */
+   padding-left: 10px;
+   padding-right: 15px;
+   padding-top: 1px;
+   padding-bottom: 5px;
+}
+h2.exr {
+   /* margin-left: 0%; */
+   margin-left: -30px;
+   margin-top: 1.5em;
+   margin-bottom: 0.5em;
+   /* color: #707070; */
+   color: #5080ff;
+   /* color: #70b0ff; */
+}
+h3.exr {
+   margin-left: 0%;
+   margin-top: 0em;
+   margin-bottom: 1em;
+   color: #707070;
+}
+
+li.exr {
+  margin-top: 1em;
+}
+
+small {
+   font-size: 87%; /*because of MS-IE*/
+}
+
+
+

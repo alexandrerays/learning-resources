@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+
+// prototipo de uma funcao que calcula a soma ded duas matrizes
+// e retorna um ponteiro para matriz 
+int**   somamat(int,int,int **, int **);
+main(){
+int **A, **B,**C;
+int i,j;
+int N,M;
+FILE *fp;
+
+    fp = fopen("result.txt","w+");
+    if(fp == NULL) {
+          printf("nao foi possivel abrir o arquivo\n");
+          exit(0);
+          }
+// alocacao dinamica para as matrizes
+   printf("entre com as dimensoes das matrizes\n");
+   scanf("%d %d", &M,&N);
+    A =  (int **) malloc(M*sizeof(int *));
+    B =  (int **) malloc(M*sizeof(int *));
+    C =  (int **) malloc(M*sizeof(int *));       
+    
+    for (i=0;i<M;i++){
+        
+        A[i] = (int *) malloc(N*sizeof(int));
+        B[i] = (int *) malloc(N*sizeof(int));
+        C[i] = (int *) malloc(N*sizeof(int));
+    }
+    // Leitura da matriz A
+    for (i=0;i<M;i++){
+        for (j=0;j<N;j++){
+            printf("entre com o elemento: A[%d , %d] = ", i,j);
+            scanf("%d", &A[i][j]);
+            }
+    }    
+    // Leitura da matriz B
+    for (i=0;i<M;i++){
+        for (j=0;j<N;j++){
+            printf("entre com o elemento: B[%d , %d] = ", i,j);
+            scanf("%d", &B[i][j]);
+            }
+    }  
+   // Chamada ao subprograma function soma
+       C = somamat(M,N,A,B);
+// Impressao da matriz A
+    printf("\n Matriz A\n");
+    for (i=0;i<M;i++){
+        for (j=0;j<N;j++){
+            printf("%d  ", A[i][j]);
+            fprintf(fp,"%d", A[i][j]);
+            }
+        printf("\n");    
+    }  
+// Impressao da matriz B
+    printf("\n Matriz B\n");
+    for (i=0;i<M;i++){
+        for (j=0;j<N;j++){
+            printf("%d  ", B[i][j]);
+            fprintf(fp,"%d", B[i][j]);
+            }
+        printf("\n");    
+    }  
+// Impressao da matriz C
+    printf("\n Matriz C\n");
+    for (i=0;i<M;i++){
+        for (j=0;j<N;j++){
+            printf("%d  ", C[i][j]);
+            fprintf(fp,"%d", C[i][j]);
+            }
+        printf("\n");    
+    }  
+    fclose(fp);
+    getch();
+}    
+
+int**   somamat(int M,int N,int **A, int **B){
+int i,j;
+int  **C;
+// alocacao de memoria para a matriz soma
+    C =  (int **) malloc(M*sizeof(int *));       
+    
+    for (i=0;i<M;i++){
+        
+        C[i] = (int *) malloc(N*sizeof(int));
+}    
+     for (i=0;i<M;i++)
+        for (j=0;j<N;j++)
+          C[i][j] = A[i][j] + B[i][j];
+          
+     return C;
+     
+}     

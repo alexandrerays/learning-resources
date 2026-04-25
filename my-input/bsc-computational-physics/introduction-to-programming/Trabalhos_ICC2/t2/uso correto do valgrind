@@ -1,0 +1,2 @@
+valgrind --tool=memcheck --track-fds=yes --leak-check=full --read-var-info=yes --show-reachable=yes ./t2
+

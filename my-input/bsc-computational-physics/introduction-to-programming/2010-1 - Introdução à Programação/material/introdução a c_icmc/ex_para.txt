@@ -1,0 +1,24 @@
+/* Este programa calcula a media
+   aritmetica de varios valores reais
+*/   
+#include <stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+/* definicao das variaveis */
+float nota;
+float media=0;;
+int i, NUM;
+int main(){
+    printf("Entre com o no. de notas\n");
+    scanf("%d", &NUM);
+    for (i=1;i<=NUM;i++)
+    {
+       printf("entre com um valor real:\n");
+       scanf("%f", &nota);
+      /* calculo da soma */
+       media = media + nota;
+    }
+    printf("a media calculada eh: %10.3f\n", media/NUM);
+    getch();
+}        
+    

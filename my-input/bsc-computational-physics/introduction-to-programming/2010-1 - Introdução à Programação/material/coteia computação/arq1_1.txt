@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+typedef struct{
+        char *nome;
+        float salario;
+        }func;
+
+int main(){
+  int i, N; 
+  char aux[255]; 
+  func *vet;   
+  FILE *fp; // p e um ponteiro para arquivo
+  fp = fopen("cadastro.txt", "w");
+  // teste se o arquivo foi criado
+  if(!fp){
+    printf("erro na leitura do arquivo/n");
+    exit(0);
+}
+  printf("entre com o no. de funcionarios");
+  scanf("%d", &N);
+  // alocacao de memoria para o vetor de registros
+  vet=(func *)(malloc(N*sizeof(func)));         
+  
+  // leitura do vetor
+  for (i=0;i<N;i++){
+       getchar();
+      printf("entre com o nome do funcionario");
+      gets(aux);
+      vet[i].nome =(char *)(malloc(sizeof(strlen(aux))));
+      strcpy(vet[i].nome,aux);
+//      getchar();
+      printf("entre com o salario do funcionario");
+      scanf("%f", &vet[i].salario);
+//      getchar();
+      }
+      
+  // impressao dos resultados    
+  for (i=0;i<N;i++){
+      fprintf(fp, "%s\n", vet[i].nome);
+      fprintf(fp, "%f",vet[i].salario);
+}    
+fclose(fp);
+   getch();
+}   

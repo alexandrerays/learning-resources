@@ -1,0 +1,60 @@
+﻿/**********************************************************/
+/*Lista1 exer10                                       */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+int a = 10;
+int b = 3;
+float x = 2.5;
+float y = 1.2;
+  
+  
+  
+quociente a/b = 3
+resto a/b = a%b = 1
+
+quociente x/2 = 1.25
+resto x/2 = x%2 = erro, não existe a operação % com numeros reais.
+
+ceil(a-x): a-x = 7.5 =>ceil(7.5) = 8
+ceil(b+y): b+y = 4.2 =>ceil(4.2) = 5
+ceil(y-x): y-x = -1.3 =>ceil(-1.3) = -1
+
+floor(2b+x): 2b+x = 8.5 =>ceil(8.5) = 8
+floor(a/3 +1): a/3 +1 = 4 =>ceil(4) = 4
+floor(x -3.2): x-3.2 = -0.7 =>ceil(-0.7) = -1
+
+abs(a-(b*b)) = 10-9 = 1
+abs(a-b) = abs(7) = 7
+e^((y/(b+2))-6) = 0.003151 , lembrando que e =~ 2.718281
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

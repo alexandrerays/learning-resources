@@ -1,0 +1,43 @@
+﻿/**********************************************************/
+/*Lista1 exer7                                          */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+Atenção: Entende-se por identificadores em C nome de variáves e nome de funções.
+
+Listarei aqui somente as inválidas:
+
+
+
+
+SALARIO-LIQUIDO (nao pode ter "-")
+
+NOTA*DO*ALUNO (nao podemos ter "*" em identificadores)
+
+3 X 4 (inicia com numero e tem espaço)
+
+KM/H (nao podemos ter "/", pois o / é um operador interno, da mesma forma que o *)
+
+"NOTA" (começa com "")
+
+AH! (o ! é operador tb)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

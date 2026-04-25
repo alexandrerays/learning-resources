@@ -1,0 +1,6 @@
+http://www.tutorialspoint.com/ansi_c/c_bits_manipulation.htm
+
+
+265 
+314
+255

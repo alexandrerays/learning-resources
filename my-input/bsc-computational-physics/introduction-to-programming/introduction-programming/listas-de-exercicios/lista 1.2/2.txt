@@ -1,0 +1,22 @@
+﻿/**********************************************************/
+/*Lista1 exer2.2.                                         */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+Somentes os comandos que são inválidos:
+
+P = M + N (a variável P não foi declarada)
+
+C1 = GOP; (C1 guarda caracter);
+
+M = N%A; ( o operador % aceita somente valores inteiros)
+
+printf("%f,%d,%d,%d,%f",A,P,M,N,B) (variável P nao declarada)
+
+B = 2.99*10**9 (Erro do operador "*")
+
+
+
+
+
+

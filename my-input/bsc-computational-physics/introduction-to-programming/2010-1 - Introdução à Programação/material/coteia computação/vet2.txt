@@ -1,0 +1,34 @@
+#include<stdlib.h>
+#include<stdio.h>
+#include <conio.h>
+// Este programa lê um vetor e determina o seu maior e menor elemento
+// Utiliza um subprograma para a determinação do maior e menor elemento
+
+void maior_menor(int, int A[10], int *, int *);
+int A[10]; int i,Maior, Menor, N;
+int main(){
+  printf("Digite valor de N (N<=10): ");
+  scanf("%d",&N);
+  for(i=0;i<N;i++){
+    printf("%d numero:",i);
+	  scanf("%d",&A[i]);
+  }
+  // Chamada ao subprograma maior_menor
+  maior_menor(N, A, &Maior, &Menor);
+   for(i=0;i<N;i++){
+    printf("%do. numero do vetor= %d\n",i+1,A[i]);
+	  
+  }
+  printf("Maior=%d e Menor= %d", Maior,Menor);
+  getch( );
+}
+// subprogram que calcula o maior e o menor elemento de um vetor
+void maior_menor(int N, int A[10], int *Maior, int *Menor){
+  *Maior=A[0];
+  *Menor=A[0];
+  for(i=1;i<N;i++){
+    if (A[i] > *Maior)  *Maior=A[i];
+    if (A[i] < *Menor)  *Menor=A[i];
+  }
+  return;
+}

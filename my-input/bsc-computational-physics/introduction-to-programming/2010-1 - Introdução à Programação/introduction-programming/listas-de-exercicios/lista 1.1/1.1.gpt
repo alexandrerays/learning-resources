@@ -1,0 +1,23 @@
+/**********************************************************/
+/*Lista1 exer1.1. Imprime a soma e a media de 3 numeros   */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+algoritmo lista1_exer1_soma_media_3_num;
+
+variáveis
+	n : inteiro;
+	i : inteiro;
+	soma : real;
+fim-variáveis
+	
+início 
+	
+	para i de 1 até 3 passo 1 faça
+		imprima("Insira o numero ",i,": ");
+		n := leia();
+		soma := soma + n;
+	fim-para	
+	
+	imprima("A soma eh: ",soma,". E a media eh: ",soma/3);
+	
+fim 

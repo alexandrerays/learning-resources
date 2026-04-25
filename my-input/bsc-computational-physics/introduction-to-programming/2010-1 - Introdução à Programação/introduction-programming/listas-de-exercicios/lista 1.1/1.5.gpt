@@ -1,0 +1,29 @@
+/******************************************************************************************/
+/*Lista1 exer1.5. Soma os algarismos de um numero inteiro positivo de 4 algarismos        */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010                                    */
+/******************************************************************************************/
+algoritmo lista1_exer4_dolares_para_reais;
+
+variáveis
+	n : inteiro;
+	n1 : inteiro;
+	n2 : inteiro;
+	n3 : inteiro;
+	soma : inteiro;
+fim-variáveis
+	
+início 
+
+	imprima("Digite um numero de 4 algarismos: ");
+	n := leia();
+
+	n1 := (n/1000);  //obtemos o algarismo dos milhares
+	n := n-(n1*1000);  //subtraimos o algarismo dos milhares*1000
+	n2 := (n/100);    //obtemos o algarismo das centenas
+	n := n-(n2*100);
+	n3 := (n/10);
+	n := n-(n3*10);     //sobrou o algarismo das unidades
+	soma := (n1 + n2 + n3 + n);
+	imprima("Soma: ",n1," + ",n2," + ",n3, " + ",n," = ",soma);	
+
+fim 

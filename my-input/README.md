@@ -10,7 +10,7 @@
 
 | # | Year | Degree | Provider | Classification |
 |---|---|---|---|---|
-| 1 | 2010–2015 | Bachelor's degree in Computational Physics | University of São Paulo | Diploma |
+| 1 | 2010–2015 | [Bachelor's degree in Computational Physics](bsc-computational-physics/) | University of São Paulo | Diploma |
 | 2 | 2021–2026 | Master's degree in Computer Engineering | University of São Paulo | Diploma |
 
 ## Other Certificates

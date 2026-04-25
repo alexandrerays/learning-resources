@@ -1,0 +1,26 @@
+/****************************************************************/
+/*Lista1 exer1.2. Obtem a area e o perimetro de um retangulo    */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010          */
+/****************************************************************/
+algoritmo lista1_exer2_area_perimetro_retang;
+
+variáveis
+	L1 : inteiro;
+	L2 : inteiro;
+	perim : inteiro;
+	area : inteiro;
+fim-variáveis
+	
+início 
+	
+	imprima("Insira o lado1 do retangulo");
+	L1 := leia();
+	imprima("Insira o lado2 do retangulo");
+	L2 := leia();
+	perim := ((2*L1) + (2*L2));
+	area := L1*L2;
+
+	imprima("Perimetro: ",perim);
+	imprima("Area: ",area);
+	
+fim 

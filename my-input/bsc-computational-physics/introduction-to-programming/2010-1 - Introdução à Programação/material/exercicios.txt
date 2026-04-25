@@ -1,0 +1,60 @@
+programa que calcula os valores de pontos de alunos em um teste
+
+inicio
+
+	declarar nota, alta=0, baixa=0 cont =0
+
+	escrever "Digite a nota do aluno de 0 a 150 ou um numero negativo para sair!"
+	ler nota
+	enquanto nota>=0
+		cont = cont + 1
+		se nota<=50
+			baixa= baixa + 1
+`		senao nota>=100
+			alta = alta + 1
+		escrever "Digite outra nota de 0 a 150 ou numero negativo para sair!".		
+		ler nota
+	fim enquanto
+	escrever "O total de alunos foi (cont)."
+	escrever "Tiveram nota alta (alta)."
+	escrever "Tiveram nota baixa (baixa)."
+fim
+
+
+programa que le o valor de dois numeros e soma todos os numeros impares entre eles
+
+inicio
+
+	declarar M=0,N=0,soma=0, div=0, cont=1
+	
+	escrever "Digite dois numeros, um menor e outro maior nessa ordem, para ser somados os impares positivos entre eles!".
+	ler M,N
+	se M<N
+		div recebe o resto de M/2
+		se M >= 0
+			se div==0
+				M=M+1
+				enquanto soma <= N
+				{
+					soma = M
+					M=M+2
+				}
+			senao
+				enquanto soma <= N
+				{
+					soma = M
+					M=M+2
+				}
+			fim se
+		senao
+			enquanto soma <= N
+				{
+					soma = cont
+					cont = cont +2
+	senao
+		escreva numeros incorretos.
+				}
+	fim se
+	escreva soma.
+fim
+		

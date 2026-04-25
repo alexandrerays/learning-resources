@@ -1,0 +1,866 @@
+/********************************************************
+**Trabalho 2 - Introducao a Ciência da Computação
+**Emanuel Valente - Nusp: 7143506
+**1o Semestre/2010
+********************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define true 1
+#define false 0
+
+
+void cria_vetor(int *v, int n)
+{
+    int i;
+    for(i=0;i<n;i++)
+    {
+        v[i] = (rand()%100000);
+    }
+}
+
+void imprime_vetor(int *v, int n)
+{
+    int i;
+    for(i=0;i<n;i++)
+    {
+        printf("\n%d",v[i]);
+    }
+}
+
+void inverte_vetor(int *v, int n)
+{
+    int i, j;
+    int a, b;
+
+    for(i=0, j=(n-1); i<(n/2); i++,j--)
+    {
+        a = v[i];
+        b = v[j];
+        v[i] = b;
+        v[j] = a;
+    }
+
+}
+
+inline void troca(int i, int j, int *v)
+{
+   int aux;
+
+   aux = v[i];
+   v[i] = v[j];
+   v[j] = aux;
+}
+
+void ordena_selection(int *v, int n)
+{
+    int i,j,m;
+
+    for(i=0;i<n-1;i++)
+    {
+        m=i;
+        for(j=i+1; j<n; j++)
+        {
+            if(v[j]<v[m])m=j;
+
+        }
+        troca(m,i,v);
+
+       }
+}
+
+/*implementacao do bubble - inicio*/
+void ordena_bubble(int *v, int n)
+{
+   int i, j;
+
+   for(i=n-1; i>0; i--)
+   {
+       for(j = 0; j<i; j++)
+       {
+            if(v[j] > v[j+1])troca(j,j+1,v);
+
+       }
+   }
+}
+/*implementacao bubble - final*/
+
+/*implementacao insertion*/
+void ordena_insertion(int *v, int n)
+{
+   int i, j, aux;
+   
+   for(i=1; i<n; i++){
+       aux = v[i];
+       for(j=i-1; j>=0 && v[j]>aux; j--)
+           v[j+1] = v[j];
+       v[j+1] = aux;
+   }
+}
+
+/*fim do insertion*/
+
+/*implementacao quicksort*/
+
+int separa_quicksort(int p, int u, int *v)
+{
+   int i, j, k;
+
+   i=v[u];
+   j=p;
+
+   for (k=p; k<u; k++)
+   {
+       if (v[k]<=i)
+       {
+           troca(j, k, v);
+           j++;
+       }
+   }
+
+   v[u]=v[j];
+   v[j]=i;
+
+   return j;
+}
+
+void ordena_quicksort(int p, int u, int *v)
+{
+   int i;
+
+   while (p<u)
+   {
+       i=separa_quicksort(p,u,v);
+
+       if (i-p<u-i)
+       {
+           ordena_quicksort(p,i-1,v);
+           p=i+1;
+       }
+       else
+       {
+           ordena_quicksort(i+1, u, v);
+           u=i-1;
+       }
+   }
+}
+
+/*fim quicksort*/
+
+
+/*heap*/
+
+void mantemHeapMax (int *A, int i, int compHeap)
+{
+    int esq, dir, maior, menor, temp;
+    esq= 2*i+1; //esquerda(i);
+    dir= 2*i+2; //direita(i);
+
+    if (esq<compHeap && A[esq]>A[i])maior= esq;
+    else maior= i;
+
+    if(dir<compHeap && A[dir]>A[maior])maior=dir;
+    if(maior != i){
+        // trocar A[i] <==> A[maior]
+        temp=A[i];
+        A[i]=A[maior];
+        A[maior]=temp;
+        // Ajusta a posiçao de maior, se incorreta
+        mantemHeapMax(A, maior, compHeap);
+        }
+}
+void constroiHeapMax(int *A, int A_length)
+{
+    int i;
+
+    int compHeap=A_length;
+    for(i=(A_length)/2-1;i>=0;i--) mantemHeapMax(A,i,compHeap);
+
+}
+
+void ordena_heap(int *A, int A_length)
+{
+    int i, compHeap, temp;
+    //constroi o heap máximo do arranjo todo
+    compHeap=A_length;
+    constroiHeapMax(A, compHeap);
+    for(i=A_length-1;i>0;i--)
+    {
+        //troca A[0] <==> A[i]
+        temp=A[0];
+        A[0]=A[i];
+        A[i]=temp;
+        //diminui o heap, pois A[i] está posicionado
+        compHeap--;
+        mantemHeapMax(A,0,compHeap);
+
+    }
+}
+
+
+/*fim heap*/
+
+int main()
+{
+    int *vet_5k, *vet_50k, *vet_25k, *vet_100k, *vet_200k;
+
+	time_t tempo_inicial, tempo_final;
+	double duracao;
+
+    vet_5k = malloc(5000*sizeof(int));
+    vet_25k = malloc(25000*sizeof(int));
+    vet_50k = malloc(50000*sizeof(int));
+    vet_100k = malloc(100000*sizeof(int));
+    vet_200k = malloc(200000*sizeof(int));
+
+
+    cria_vetor(vet_5k,5000);
+    cria_vetor(vet_25k,25000);
+    cria_vetor(vet_50k,50000);
+    cria_vetor(vet_100k,100000);
+    cria_vetor(vet_200k,200000);
+
+/***************************BUBBLE**************************************/
+    printf("-----------------------------------------\n");
+    printf("\t\tBubble Sort \n");
+    //5k aleatorios
+    tempo_inicial = clock();
+    ordena_bubble(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos: %f segundos\n",duracao);
+
+    //5k ordenados
+    tempo_inicial = clock();
+    ordena_bubble(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos ordenados: %f segundos\n",duracao);
+
+    //5k ordenados em ordem decrescente
+    inverte_vetor(vet_5k,5000);
+    tempo_inicial = clock();
+    ordena_bubble(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+    //25k aleatorios
+    tempo_inicial = clock();
+    ordena_bubble(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos: %f segundos\n",duracao);
+
+    //25k ordenados
+    tempo_inicial = clock();
+    ordena_bubble(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos ordenados: %f segundos\n",duracao);
+
+    //25k ordenados em ordem decrescente
+    inverte_vetor(vet_25k,25000);
+    tempo_inicial = clock();
+    ordena_bubble(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+    //50k elementos
+    tempo_inicial = clock();
+    ordena_bubble(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos: %f segundos\n",duracao);
+
+    //50k elementos ordenados
+    tempo_inicial = clock();
+    ordena_bubble(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos ordenados: %f segundos\n",duracao);
+
+    //50k ordenados em ordem decrescente
+    inverte_vetor(vet_50k,50000);
+    tempo_inicial = clock();
+    ordena_bubble(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+    //100k elementos
+    tempo_inicial = clock();
+    ordena_bubble(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos aleatorios: %f segundos
+
+\n",duracao);
+
+    //100k elementos ordenados
+    tempo_inicial = clock();
+    ordena_bubble(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos ordenados: %f segundos
+
+\n",duracao);
+
+    //100k ordenados em ordem decrescente
+    inverte_vetor(vet_100k,100000);
+    tempo_inicial = clock();
+    ordena_bubble(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+    //200k elementos
+    tempo_inicial = clock();
+    ordena_bubble(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos aleatorios: %f segundos
+
+\n",duracao);
+
+    //200k elementos ordenados
+    tempo_inicial = clock();
+    ordena_bubble(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos ordenados: %f segundos
+
+\n",duracao);
+
+    //200k ordenados em ordem decrescente
+    inverte_vetor(vet_200k,200000);
+    tempo_inicial = clock();
+    ordena_bubble(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+
+ /*************************FIM BUBBLE**********************************/
+
+ 
+
+/***************************INSERTION**************************************
+
+/
+    cria_vetor(vet_5k,5000);
+    cria_vetor(vet_25k,25000);
+    cria_vetor(vet_50k,50000);
+    cria_vetor(vet_100k,100000);
+    cria_vetor(vet_200k,200000);
+
+    printf("-----------------------------------------\n");
+    printf("\t\tInsertion Sort \n");
+    //5k aleatorios
+    tempo_inicial = clock();
+    ordena_insertion(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos: %f segundos\n",duracao);
+
+    //5k ordenados
+    tempo_inicial = clock();
+    ordena_insertion(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos ordenados: %f segundos\n",duracao);
+
+    //5k ordenados em ordem decrescente
+    inverte_vetor(vet_5k,5000);
+    tempo_inicial = clock();
+    ordena_insertion(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+    //25k aleatorios
+    tempo_inicial = clock();
+    ordena_insertion(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos: %f segundos\n",duracao);
+
+    //25k ordenados
+    tempo_inicial = clock();
+    ordena_insertion(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos ordenados: %f segundos\n",duracao);
+
+    //25k ordenados em ordem decrescente
+    inverte_vetor(vet_25k,25000);
+    tempo_inicial = clock();
+    ordena_insertion(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+
+
+    //50k elementos
+    tempo_inicial = clock();
+    ordena_insertion(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos: %f segundos\n",duracao);
+
+    //50k elementos ordenados
+    tempo_inicial = clock();
+    ordena_insertion(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos ordenados: %f segundos\n",duracao);
+
+    //50k ordenados em ordem decrescente
+    inverte_vetor(vet_50k,50000);
+    tempo_inicial = clock();
+    ordena_insertion(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+    //100k elementos
+    tempo_inicial = clock();
+    ordena_insertion(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos aleatorios: %f segundos
+
+\n",duracao);
+
+    //100k elementos ordenados
+    tempo_inicial = clock();
+    ordena_insertion(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos ordenados: %f segundos
+
+\n",duracao);
+
+    //100k ordenados em ordem decrescente
+    inverte_vetor(vet_100k,100000);
+    tempo_inicial = clock();
+    ordena_insertion(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+    //200k elementos
+    tempo_inicial = clock();
+    ordena_insertion(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos aleatorios: %f segundos
+
+\n",duracao);
+
+    //200k elementos ordenados
+    tempo_inicial = clock();
+    ordena_insertion(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos ordenados: %f segundos
+
+\n",duracao);
+
+    //200k ordenados em ordem decrescente
+    inverte_vetor(vet_200k,200000);
+    tempo_inicial = clock();
+    ordena_insertion(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+
+
+
+ /*************************FIM INSERTION**********************************/
+
+ /***********************SELECTION****************************************/
+
+    cria_vetor(vet_5k,5000);
+    cria_vetor(vet_25k,25000);
+    cria_vetor(vet_50k,50000);
+    cria_vetor(vet_100k,100000);
+    cria_vetor(vet_200k,200000);
+
+
+    printf("-------------------------------------------\n");
+    printf("\n\t\Selection \n");
+
+    //5k elementos
+    tempo_inicial = clock();
+    ordena_selection(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos: %f segundos\n",duracao);
+
+     //5k elementos ordenados
+    tempo_inicial = clock();
+    ordena_selection(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos ordenados: %f segundos\n",duracao);
+
+
+    //5k elementos ordenados em orden decrescente
+    inverte_vetor(vet_5k,5000);
+    tempo_inicial = clock();
+    ordena_selection(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+    //25k elementos
+    tempo_inicial = clock();
+    ordena_selection(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos: %f segundos\n",duracao);
+
+    //25k elementos ordenados
+    tempo_inicial = clock();
+    ordena_selection(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos ordenados: %f segundos\n",duracao);
+
+    //25k elementos em ordem decrescente
+    inverte_vetor(vet_25k,25000);
+    tempo_inicial = clock();
+    ordena_selection(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+     //50k elementos
+    tempo_inicial = clock();
+    ordena_selection(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos: %f segundos\n",duracao);
+
+    //50k elementos ordenados
+    tempo_inicial = clock();
+    ordena_selection(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos ordenados: %f segundos\n",duracao);
+
+    //50k elementos
+    inverte_vetor(vet_50k,50000);
+    tempo_inicial = clock();
+    ordena_selection(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+
+    //100k elementos
+    tempo_inicial = clock();
+    ordena_selection(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos: %f segundos\n",duracao);
+
+    //100k elementos ordenados
+    tempo_inicial = clock();
+    ordena_selection(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos ordenados: %f segundos
+
+\n",duracao);
+
+    //100k elementos ordenados em ordem decrescente
+    inverte_vetor(vet_100k,100000);
+    tempo_inicial = clock();
+    ordena_selection(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos em ordem decrescente: %f segundos
+
+\n",duracao);
+
+
+    //200k elementos
+    tempo_inicial = clock();
+    ordena_selection(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos: %f segundos\n",duracao);
+
+     //200k elementos ordenados
+    tempo_inicial = clock();
+    ordena_selection(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos ordenados: %f segundos
+
+\n",duracao);
+
+    //200k elementos ordenados rm ordem decrescente
+    inverte_vetor(vet_200k,200000);
+    tempo_inicial = clock();
+    ordena_selection(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos em ordem decrescente: %f segundos
+
+\n",duracao);
+
+ /***********************FIM SELECTION 
+
+***************************************/
+
+ /***************************QUICKSORT************************************/
+
+    cria_vetor(vet_5k,5000);
+    cria_vetor(vet_25k,25000);
+    cria_vetor(vet_50k,50000);
+    cria_vetor(vet_100k,100000);
+    cria_vetor(vet_200k,200000);
+
+    printf("-----------------------------------------\n");
+    printf("\t\tQuickSort \n");
+
+     //5k elementos
+    tempo_inicial = clock();
+    ordena_quicksort(0, 5000, vet_5k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos: %f segundos\n",duracao);
+
+     //5k elementos ordenados
+    tempo_inicial = clock();
+    ordena_quicksort(0, 5000, vet_5k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos ordenados: %f segundos\n",duracao);
+
+
+    //5k elementos ordenados em orden decrescente
+    inverte_vetor(vet_5k, 5000);
+    tempo_inicial = clock();
+    ordena_quicksort(0, 5000, vet_5k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+    //25k elementos
+    tempo_inicial = clock();
+    ordena_quicksort(0, 25000, vet_25k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos: %f segundos\n",duracao);
+
+    //25k elementos ordenados
+    tempo_inicial = clock();
+    ordena_quicksort(0, 25000, vet_25k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos ordenados: %f segundos\n",duracao);
+
+    //25k elementos em ordem decrescente
+    inverte_vetor(vet_25k,25000);
+    tempo_inicial = clock();
+    ordena_quicksort(0, 25000, vet_25k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+     //50k elementos
+    tempo_inicial = clock();
+    ordena_quicksort(0, 50000, vet_50k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos: %f segundos\n",duracao);
+
+    //50k elementos ordenados
+    tempo_inicial = clock();
+    ordena_quicksort(0, 50000, vet_50k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos ordenados: %f segundos\n",duracao);
+
+    //50k elementos
+    inverte_vetor(vet_50k, 50000);
+    tempo_inicial = clock();
+    ordena_quicksort(0, 50000,vet_50k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+
+    //100k elementos
+    tempo_inicial = clock();
+    ordena_quicksort(0, 100000, vet_100k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos: %f segundos\n",duracao);
+
+    //100k elementos ordenados
+    tempo_inicial = clock();
+    ordena_quicksort(0, 100000, vet_100k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos ordenados: %f segundos
+
+\n",duracao);
+
+    //100k elementos ordenados em ordem decrescente
+    inverte_vetor(vet_100k,100000);
+    tempo_inicial = clock();
+    ordena_quicksort(0, 100000, vet_100k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos em ordem decrescente: %f segundos
+
+\n",duracao);
+
+
+    //200k elementos
+    tempo_inicial = clock();
+    ordena_quicksort(0, 200000, vet_200k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos: %f segundos\n",duracao);
+
+     //200k elementos ordenados
+    tempo_inicial = clock();
+    ordena_quicksort(0, 200000, vet_200k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos ordenados: %f segundos
+
+\n",duracao);
+
+    //200k elementos ordenados rm ordem decrescente
+    inverte_vetor(vet_200k,200000);
+    tempo_inicial = clock();
+    ordena_quicksort(0, 200000, vet_200k);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos em ordem decrescente: %f segundos
+
+\n",duracao);
+
+
+
+ /*******************************FIM 
+
+QUICKSORT**********************************/
+
+/*************************HEAPSORT*************************************/
+    cria_vetor(vet_5k,5000);
+    cria_vetor(vet_25k,25000);
+    cria_vetor(vet_50k,50000);
+    cria_vetor(vet_100k,100000);
+    cria_vetor(vet_200k,20000);
+
+    printf("-------------------------------------------\n");
+    printf("\n\t\tHeap Sort \n");
+
+    //5k elementos
+    tempo_inicial = clock();
+    ordena_heap(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos: %f segundos\n",duracao);
+
+     //5k elementos ordenados
+    tempo_inicial = clock();
+    ordena_heap(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos ordenados: %f segundos\n",duracao);
+
+
+    //5k elementos ordenados em orden decrescente
+    inverte_vetor(vet_5k,5000);
+    tempo_inicial = clock();
+    ordena_heap(vet_5k,5000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 5 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+    //25k elementos
+    tempo_inicial = clock();
+    ordena_heap(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos: %f segundos\n",duracao);
+
+    //25k elementos ordenados
+    tempo_inicial = clock();
+    ordena_heap(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos ordenados: %f segundos\n",duracao);
+
+    //25k elementos em ordem decrescente
+    inverte_vetor(vet_25k,25000);
+    tempo_inicial = clock();
+    ordena_heap(vet_25k,25000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 25 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+     //50k elementos
+    tempo_inicial = clock();
+    ordena_heap(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos: %f segundos\n",duracao);
+
+    //50k elementos ordenados
+    tempo_inicial = clock();
+    ordena_heap(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos ordenados: %f segundos\n",duracao);
+
+    //50k elementos
+    inverte_vetor(vet_50k,50000);
+    tempo_inicial = clock();
+    ordena_heap(vet_50k,50000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 50 mil elementos ordenados em ordem decrescente: %f 
+
+segundos\n",duracao);
+
+
+    //100k elementos
+    tempo_inicial = clock();
+    ordena_heap(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos: %f segundos\n",duracao);
+
+    //100k elementos ordenados
+    tempo_inicial = clock();
+    ordena_heap(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos ordenados: %f segundos
+
+\n",duracao);
+
+    //100k elementos ordenados em ordem decrescente
+    inverte_vetor(vet_100k,100000);
+    tempo_inicial = clock();
+    ordena_heap(vet_100k,100000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 100 mil elementos em ordem decrescente: %f segundos
+
+\n",duracao);
+
+
+    //200k elementos
+    tempo_inicial = clock();
+    ordena_heap(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos: %f segundos\n",duracao);
+
+     //200k elementos ordenados
+    tempo_inicial = clock();
+    ordena_heap(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos ordenados: %f segundos
+
+\n",duracao);
+
+    //200k elementos ordenados rm ordem decrescente
+    inverte_vetor(vet_200k,200000);
+    tempo_inicial = clock();
+    ordena_heap(vet_200k,200000);
+    duracao = ((double) clock()-tempo_inicial)/CLOCKS_PER_SEC;
+    printf("\nVetor de 200 mil elementos em ordem decrescente: %f segundos
+
+\n",duracao);
+
+
+
+
+/***********************FIM HEAPSORT***********************************/
+
+
+
+    return (0);
+}
+
+

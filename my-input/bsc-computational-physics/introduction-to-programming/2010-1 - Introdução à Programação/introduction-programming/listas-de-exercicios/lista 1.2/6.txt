@@ -1,0 +1,32 @@
+﻿/**********************************************************/
+/*Lista1 exer6 -                                          */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+21 = int / short int
+
+"BOLA" = char (literal)
+
+"VERDADEIRO" = bool (true)
+
+0,21*102 = float
+
+false = bool 
+
+-813 = int
+
+813 = short int / int
+
+813.0 = float
+
+'8' = char (somente 1 caracter)
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+A partir da observação dos dados das tabelas, concluimos que os algoritimos de ordenação mais eficientes
+
+Para valores aleatórios:
+1. Quick Sort
+2. Heap Sort
+3. Insertion Sort
+4. Selection Sort
+5. Bubble Sort
+
+Para valores Ordenados:
+1. Inserion Sort
+2. Heap Sort
+3. Selection Sort
+4. Bubble Sort
+5. Quick Sort
+
+Para valores Ordenados Inversos:
+1. Insertion Sort
+2. Heap Sort
+3. Selection Sort
+4. Bubble Sort
+5. Quick Sort
+
+Logo, não existe melhor algoritimo de ordenação, e sim uma situação na qual o algoritimo se encaixa melhor.

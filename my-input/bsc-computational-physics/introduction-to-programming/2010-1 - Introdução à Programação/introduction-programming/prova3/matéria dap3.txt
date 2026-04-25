@@ -1,0 +1,7 @@
+P3 DE PROGRAMAÇÃO:
+
+- manipulação de arquivos
+
+- complexidade de algoritimos
+
+- algoritimos de ordenação

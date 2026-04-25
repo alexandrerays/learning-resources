@@ -1,0 +1,8 @@
+http://linguagemc.com.br/ctype-h-toupper-tolower-isalpha-isdigit-em-c/
+
+
+http://stackoverflow.com/questions/17765599/how-to-create-histogram-from-pgm-image
+
+http://stackoverflow.com/questions/17909550/getting-a-histogram-from-a-pgm-in-c
+
+http://stackoverflow.com/questions/7455343/displaying-histogram-pixel-values-from-pgm-image-p5-using-pure-c-without-any-i

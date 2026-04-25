@@ -1,0 +1,52 @@
+﻿/**********************************************************/
+/*Lista1 exer8                                         */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+X = 2;
+Y = 5;
+Z = 9;
+NOME = "MARIA";
+SIM = false;
+
+-----------------------------------------
+X + Y > Z && NOME == "MARIA"
+Resolução:
+X + Y > Z  ->falso
+NOME == "MARIA" -> verdadeiro
+
+falso e verdadeiro = falso
+
+Resposta = falso = 0
+-----------------------------------------
+SIM || Y>=X
+Resolução:
+falso || verdadeiro = verdadeiro
+
+Resposta: verdadeiro = true = 1
+------------------------------------------
+
+!SIM && (Z/Y +1)==X
+Resolução:
+!SIM = verdadeiro
+(Z/Y +1)==X = verdadeiro
+verdadeiro && verdadeiro = verdadeiro
+
+Resposta: verdadeiro = true =1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

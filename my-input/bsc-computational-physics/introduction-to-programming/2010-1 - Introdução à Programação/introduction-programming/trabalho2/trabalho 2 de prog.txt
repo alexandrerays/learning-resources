@@ -1,0 +1,20 @@
+implementar
+1.bubble sort
+2.selection
+3.insertion
+4.quick sort
+5.heap sort
+
+conjuntos de dados
+1.aleatórios(100,1000,10000,50000,100000)
+2.ordenados(100,1000,10000)
+3.odenador(inversa)(100,1000,10000)
+
+Anásile empírica do tempo de execusão
+
+-guardar o tempo de execução dos algoritimos p/ cada conjunto
+-fazer um relatório sobre os experimentos
+-gráficos
+
+
+

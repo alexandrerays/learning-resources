@@ -1,0 +1,281 @@
+# include<stdio.h>
+# include<stdlib.h>
+
+main(){
+       system("COLOR 17");
+       int a,d,e,i,j,o=0, exe=0, eco=0;
+       int Assentos[4][5]; 
+       for (i=0;i<4;++i)  //matriz que indica todos os assentos vazios e ocupados
+           for(j=0;j<5;++j)
+               Assentos[i][j]=0;
+       while (o<20){ //funçao para contar número de passageiros
+       do {
+           system("cls");
+           printf("\n\n\n      -----------------------------         * \n");
+       printf("      -----------------------------         *-*\n");
+       printf("      -----------------------------   *       *-*\n");
+       printf("      -------COMPANHIA AEREA-------   *-*       *-*\n");
+       printf("      -----------------------------     *-*-*-*-*-*-*-*-*\n");
+       printf("      -----------------------------       *-*-*-*-*-*-*-*-*\n");
+       printf("      -----------------------------     *-*-*-*-*-*-*-*-*\n");
+       printf("      -----GOLD EAGLE AIRLINES-----   *-*       *-*\n");
+       printf("      -----------------------------   *       *-*\n");
+       printf("      -----------------------------         *-*\n");
+       printf("      -----------------------------         *\n\n\n");
+                  printf("                ASSENTOS ( 0 - Vazio, 1 - Ocupado )\n"); //Assentos numerados e a situaçao deles ocupados ou vazios
+       printf("                  Executivo ---    Economico\n");
+       printf("                  1D-%d 2D-%d --- 3D-%d 4D-%d 5D-%d \n", Assentos[0][0], Assentos[0][1], Assentos[0][2], Assentos[0][3], Assentos[0][4]); //assentos numerados e verificaçao se está vazio ou nao
+       printf("                  1C-%d 2C-%d --- 3C-%d 4C-%d 5C-%d \n\n", Assentos[1][0], Assentos[1][1], Assentos[1][2], Assentos[1][3], Assentos[1][4]);
+       printf("                  1B-%d 2B-%d --- 3B-%d 4B-%d 5B-%d \n", Assentos[2][0], Assentos[2][1], Assentos[2][2], Assentos[2][3], Assentos[2][4]);
+       printf("                  1A-%d 2A-%d --- 3A-%d 4A-%d 5A-%d \n\n", Assentos[3][0], Assentos[3][1], Assentos[3][2], Assentos[3][3], Assentos[3][4]);
+           printf ("Bom dia, Por favor escolha a opcao de voo \n"); //escolher qual classe deseja
+           printf("\t (DIGITE 1) para classe Executiva \n");
+           printf("\t (DIGITE 2) para classe Economica \n");
+           scanf("%d", &a);
+           system("cls");
+           } while ((a<1)||(a>2));
+       switch (a){
+              case 1:
+                   if (exe>7){ // se os assentos estiverem ocupados na area executiva essa funçao irá verificar se existem assentos na outra area
+                           printf("\n ------------Area Executiva Lotada------------ \n\n");
+                           if (eco<=11) // sabendo que na outra area existem vagas, oferece esta vaga
+                           printf("Ainda existem vagas na classe Economica, deseja comprar uma vaga Economica? \n\n");
+                           printf(" (1) se sim, (2) se nao.\n\n");
+                           scanf("%d", &d);
+                           switch (d){
+                                  case 1:// se a pessoa desejar a vaga pedir para que ela escolha seu assento
+                                       int auxi, linh, col;
+                           do{
+                               auxi=0;    
+                           printf("Escolha seu assento na Area Economica: \n\n");
+                           printf("ASSENTOS ECONOMICOS ( 0 - Vazio , 1 - Ocupado)\n");
+                           printf("3D-%d 4D-%d 5D-%d\n", Assentos[0][2], Assentos[0][3], Assentos[0][4]); //assentos economicos numerados e a situação deles
+                           printf("3C-%d 4C-%d 5C-%d\n\n", Assentos[1][2], Assentos[1][3], Assentos[1][4]);
+                           printf("3B-%d 4B-%d 5B-%d\n", Assentos[2][2], Assentos[2][3], Assentos[2][4]);
+                           printf("3A-%d 4A-%d 5A-%d\n\n\n", Assentos[3][2], Assentos[3][3], Assentos[3][4]);
+                           do{ //escolher a coluna
+                                  printf("(DIGITE 3) Para coluna 3 \n");
+                                  printf("(DIGITE 4) Para coluna 4 \n");
+                                  printf("(DIGITE 5) Para coluna 5 \n");
+                                  scanf("%d", &col);
+                                  col--;
+                                  } while ((col<2)||(col>4));
+                           do{ // escolher a linha
+                                  printf("\n(DIGITE 1) Para linha D\n");
+                                  printf("(DIGITE 2) Para linha C\n");
+                                  printf("(DIGITE 3) Para linha B\n");
+                                  printf("(DIGITE 4) Para linha A\n");
+                                  scanf("%d", &linh);
+                                  linh--;
+                                  } while ((linh<0)||(linh>3));
+                                  system("cls");
+                           if (Assentos[linh][col]==1){
+                              auxi=2;
+                              printf("\n-------------------------\n");                        
+                              printf("-----Assento Ocupado----- \n");
+                              printf("------------------------- \n\n");
+                              }
+                              }while (auxi==2);    
+                           Assentos[linh][col]=1;
+                           o++; // contador de passagens compradas
+                           eco++; // contador de passagens economicas compradas
+                           printf("\n\n-----------COMPANHIA AEREA GOLD EAGLE AIRLINES-----------\n\n"); // Cartao de embarque
+                           printf("                    CARTAO DE EMBARQUE\n\n");
+                           printf("               HORARIO DE EMBARQUE : 14:00\n\n");
+                           printf("                     CLASSE : ECONOMICA\n");
+                           if ((col==2)&&(linh==0))printf("\n                      ASSENTO - 3D\n");
+                           if ((col==2)&&(linh==1))printf("\n                      ASSENTO - 3C\n");
+                           if ((col==2)&&(linh==2))printf("\n                      ASSENTO - 3B\n");
+                           if ((col==2)&&(linh==3))printf("\n                      ASSENTO - 3A\n");
+                           if ((col==3)&&(linh==0))printf("\n                      ASSENTO - 4D\n");
+                           if ((col==3)&&(linh==1))printf("\n                      ASSENTO - 4C\n");
+                           if ((col==3)&&(linh==2))printf("\n                      ASSENTO - 4B\n");
+                           if ((col==3)&&(linh==3))printf("\n                      ASSENTO - 4A\n");
+                           if ((col==4)&&(linh==0))printf("\n                      ASSENTO - 5D\n");
+                           if ((col==4)&&(linh==1))printf("\n                      ASSENTO - 5C\n");
+                           if ((col==4)&&(linh==2))printf("\n                      ASSENTO - 5B\n");
+                           if ((col==4)&&(linh==3))printf("\n                      ASSENTO - 5A\n");
+                           break;
+                              case 2:// se a pessoa prefere nao ficar com a area economica  
+                                   printf("\n----------------Proximo voo sai em 3 horas----------------\n\n");
+                                   break;
+}
+                                    
+                           }
+                           if (exe<=7){ // contador de passagens executivas
+                           int aux,lin,co;
+                           do {
+                               aux=0;
+                           printf("Escolha seu assento na Area Executiva: \n\n");
+                           printf("ASSENTOS EXECUTIVOS ( 0 - Vazio , 1 - Ocupado )\n");
+                           printf("1D-%d 2D-%d\n", Assentos[0][0], Assentos[0][1]); //assentos executivos numerados e a situaçao deles
+                           printf("1C-%d 2C-%d\n\n", Assentos[1][0], Assentos[1][1]);
+                           printf("1B-%d 2B-%d\n", Assentos[2][0], Assentos[2][1]);
+                           printf("1A-%d 2A-%d\n\n\n", Assentos[3][0], Assentos[3][1]);
+                           do{
+                                  printf("(DIGITE 1) Para coluna 1 \n");
+                                  printf("(DIGITE 2) Para coluna 2 \n");
+                                  scanf("%d", &co);
+                                  co--;
+                                  } while ((co<0)||(co>1));
+                           do{
+                                  printf("\n(DIGITE 1) Para linha D\n");
+                                  printf("(DIGITE 2) Para linha C\n");
+                                  printf("(DIGITE 3) Para linha B\n");
+                                  printf("(DIGITE 4) Para linha A\n");
+                                  scanf("%d", &lin);
+                                  lin--;
+                                  } while ((lin<0)||(lin>3));
+                                  system("cls"); 
+                           if (Assentos[lin][co]==1){// verifica se o assento está ocupado
+                              aux=1;
+                              printf("\n-------------------------\n");                        
+                              printf("-----Assento Ocupado----- \n");
+                              printf("------------------------- \n\n");
+                              }
+                              }while (aux==1);    
+                           Assentos[lin][co]=1;
+                           o++;//contador de passagens compradas
+                           exe++;// contador de passagens executivas compradas
+                           printf("\n\n-----------COMPANHIA AEREA GOLD EAGLE AIRLINES-----------\n\n");
+                           printf("                    CARTAO DE EMBARQUE\n\n");
+                           printf("               HORARIO DE EMBARQUE : 14:00\n\n");
+                           printf("                     CLASSE : EXECUTIVA\n");                                                      
+                           if ((co==0)&&(lin==0)) printf("\n                       ASSENTO - 1D\n");
+                           if ((co==0)&&(lin==1)) printf("\n                       ASSENTO - 1C\n");
+                           if ((co==0)&&(lin==2)) printf("\n                       ASSENTO - 1B\n");
+                           if ((co==0)&&(lin==3)) printf("\n                       ASSENTO - 1A\n");
+                           if ((co==1)&&(lin==0)) printf("\n                       ASSENTO - 2D\n");
+                           if ((co==1)&&(lin==1)) printf("\n                       ASSENTO - 2C\n");
+                           if ((co==1)&&(lin==2)) printf("\n                       ASSENTO - 2B\n");
+                           if ((co==1)&&(lin==3)) printf("\n                       ASSENTO - 2A\n");
+                           }
+                           break;
+                      case 2:
+                   if (eco>11){
+                           printf("\n ------------Area Economica Lotada------------ \n\n");
+                           if (exe<=7){
+                           printf("Ainda existe vaga na classe Executiva, deseja comprar uma vaga Executiva? \n");
+                           printf(" (1) se sim, (2) se nao.\n\n");
+                           scanf("%d", &e);
+                           switch (e){
+                                  case 1:
+                                    int aux,lin,co;
+                           do {
+                               aux=0;
+                           printf("Escolha seu assento na Area Executiva: \n\n");
+                           printf("ASSENTOS EXECUTIVOS ( 0 - Vazio , 1 - Ocupado )\n");
+                           printf("1D-%d 2D-%d\n", Assentos[0][0], Assentos[0][1]); //assentos executivos numerados
+                           printf("1C-%d 2C-%d\n\n", Assentos[1][0], Assentos[1][1]);
+                           printf("1B-%d 2B-%d\n", Assentos[2][0], Assentos[2][1]);
+                           printf("1A-%d 2A-%d\n\n\n", Assentos[3][0], Assentos[3][1]);
+                           do{
+                                  printf("(DIGITE 1) Para coluna 1 \n");
+                                  printf("(DIGITE 2) Para coluna 2 \n");
+                                  scanf("%d", &co);
+                                  co--;
+                                  } while ((co<0)||(co>1));
+                           do{
+                                  printf("\n(DIGITE 1) Para linha D\n");
+                                  printf("(DIGITE 2) Para linha C\n");
+                                  printf("(DIGITE 3) Para linha B\n");
+                                  printf("(DIGITE 4) Para linha A\n");
+                                  scanf("%d", &lin);
+                                  lin--;
+                                  } while ((lin<0)||(lin>3));
+                                  system("cls");
+                           if (Assentos[lin][co]==1){
+                              aux=1;
+                              printf("\n-------------------------\n");                        
+                              printf("-----Assento Ocupado----- \n");
+                              printf("------------------------- \n\n");}
+                              }while (aux==1);    
+                           Assentos[lin][co]=1;
+                           o++;
+                           exe++;
+                           printf("\n\n-----------COMPANHIA AEREA GOLD EAGLE AIRLINES-----------\n\n");
+                           printf("                    CARTAO DE EMBARQUE\n\n");
+                           printf("               HORARIO DE EMBARQUE : 14:00\n\n");
+                           printf("                     CLASSE : EXECUTIVA\n");                                                      
+                           if ((co==0)&&(lin==0)) printf("\n                       ASSENTO - 1D\n");
+                           if ((co==0)&&(lin==1)) printf("\n                       ASSENTO - 1C\n");
+                           if ((co==0)&&(lin==2)) printf("\n                       ASSENTO - 1B\n");
+                           if ((co==0)&&(lin==3)) printf("\n                       ASSENTO - 1A\n");
+                           if ((co==1)&&(lin==0)) printf("\n                       ASSENTO - 2D\n");
+                           if ((co==1)&&(lin==1)) printf("\n                       ASSENTO - 2C\n");
+                           if ((co==1)&&(lin==2)) printf("\n                       ASSENTO - 2B\n");
+                           if ((co==1)&&(lin==3)) printf("\n                       ASSENTO - 2A\n"); 
+                           break;
+                           case 2:
+                                   printf("\n-----------------Proximo voo sai em 3 horas-----------------\n\n");}
+                           break;
+}
+                           
+                           }
+                           if(eco<=11){
+                           int auxi, linh, col;
+                           do{
+                               auxi=0;    
+                           printf("Escolha seu assento na Area Economica: \n\n");
+                           printf("ASSENTOS ECONOMICOS ( 0 - Vazio , 1 - Ocupado)\n");
+                           printf("3D-%d 4D-%d 5D-%d\n", Assentos[0][2], Assentos[0][3], Assentos[0][4]); //assentos economicos numerados
+                           printf("3C-%d 4C-%d 5C-%d\n\n", Assentos[1][2], Assentos[1][3], Assentos[1][4]);
+                           printf("3B-%d 4B-%d 5B-%d\n", Assentos[2][2], Assentos[2][3], Assentos[2][4]);
+                           printf("3A-%d 4A-%d 5A-%d\n\n\n", Assentos[3][2], Assentos[3][3], Assentos[3][4]);
+                           do{
+                                  printf("(DIGITE 3) Para coluna 3 \n");
+                                  printf("(DIGITE 4) Para coluna 4 \n");
+                                  printf("(DIGITE 5) Para coluna 5 \n");
+                                  scanf("%d", &col);
+                                  col--;
+                                  } while ((col<2)||(col>4));
+                           do{
+                                  printf("\n(DIGITE 1) Para linha D\n");
+                                  printf("(DIGITE 2) Para linha C\n");
+                                  printf("(DIGITE 3) Para linha B\n");
+                                  printf("(DIGITE 4) Para linha A\n");
+                                  scanf("%d", &linh);
+                                  linh--;
+                                  } while ((linh<0)||(linh>3));
+                                  system("cls");
+                           if (Assentos[linh][col]==1){
+                              auxi=2;
+                              printf("\n-------------------------\n");                        
+                              printf("-----Assento Ocupado----- \n");
+                              printf("------------------------- \n");
+                              }
+                              }while (auxi==2);    
+                           Assentos[linh][col]=1;
+                           o++;
+                           eco++;
+                           printf("\n\n-----------COMPANHIA AEREA GOLD EAGLE AIRLINES-----------\n\n");
+                           printf("                    CARTAO DE EMBARQUE\n\n");
+                           printf("               HORARIO DE EMBARQUE : 14:00\n\n");
+                           printf("                     CLASSE : ECONOMICA\n");
+                           if ((col==2)&&(linh==0))printf("\n                      ASSENTO - 3D\n");
+                           if ((col==2)&&(linh==1))printf("\n                      ASSENTO - 3C\n");
+                           if ((col==2)&&(linh==2))printf("\n                      ASSENTO - 3B\n");
+                           if ((col==2)&&(linh==3))printf("\n                      ASSENTO - 3A\n");
+                           if ((col==3)&&(linh==0))printf("\n                      ASSENTO - 4D\n");
+                           if ((col==3)&&(linh==1))printf("\n                      ASSENTO - 4C\n");
+                           if ((col==3)&&(linh==2))printf("\n                      ASSENTO - 4B\n");
+                           if ((col==3)&&(linh==3))printf("\n                      ASSENTO - 4A\n");
+                           if ((col==4)&&(linh==0))printf("\n                      ASSENTO - 5D\n");
+                           if ((col==4)&&(linh==1))printf("\n                      ASSENTO - 5C\n");
+                           if ((col==4)&&(linh==2))printf("\n                      ASSENTO - 5B\n");
+                           if ((col==4)&&(linh==3))printf("\n                      ASSENTO - 5A\n");
+                           break;}
+                           }
+                           printf("\n\n\n");
+                           printf("Aperte ENTER para continuar");
+                           getchar();
+                           getchar();
+                           }
+                           system("cls");
+                           printf("\n--------------------------\n");
+                           printf("--------VOO LOTADO--------\n");
+                           printf("--PROXIMO VOO EM 3 HORAS--\n");
+                           printf("--------------------------\n\n");
+                           system("pause");
+                           }
+                           

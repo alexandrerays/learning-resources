@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <math.h>
+// Declaracao de variaveis
+int A, B, C, DELTA;
+float X1, X2;
+
+int main(){ 
+    //inicio
+   // leitura dos dados
+   scanf("%d %d %d", &A, &B, &C);
+   DELTA = B * B - 4 * A * C ;
+   if (DELTA >= 0) {
+      X1 = (-B + DELTA)/(2*A);
+      X2 = (-B - DELTA)/(2*A);
+      printf("RAIZ1 = %f RAIZ2= %f", X1, X2);
+      }
+   else {
+      printf(" nao existe raizes reais");  
+    }
+    getchar(); 
+    getchar(); 
+        
+}
+//fim
+   

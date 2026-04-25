@@ -1,0 +1,50 @@
+﻿/**********************************************************/
+/*Lista1 exer4.1 - Comandos em C para achar o período de  */
+/*um pendulo, dado seu comprimento                        */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+Pêndulo
+...................................
+
+float pi = 3.141592
+float g = 6291 // cm/s
+float l;   //comprimento do pendulo em cm.
+float t;   //periodo
+
+scanf("%f",&l);
+
+t = pi*sqrt(l/g);
+
+.....................................
+
+
+
+/**********************************************************/
+/*Lista1 exer4.2 - Comandos em C para achar a força entre */
+/* 2 corpos dado a massa e a distancia entre eles         */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+Força entre 2 corpos
+.......................................
+
+float m1,m2;
+float g;
+float r;
+float f;
+
+g = 6.673*(power(10,-8));
+
+scanf("%f,%f,%f",m1,m2,r);
+
+f = (g*m1*m2)/(r*r);
+
+---------------------------------------
+
+
+
+
+
+
+

@@ -1,0 +1,84 @@
+http://linguagemc.com.br/ctype-h-toupper-tolower-isalpha-isdigit-em-c/
+
+
+http://stackoverflow.com/questions/17765599/how-to-create-histogram-from-pgm-image
+
+http://stackoverflow.com/questions/17909550/getting-a-histogram-from-a-pgm-in-c
+
+http://stackoverflow.com/questions/7455343/displaying-histogram-pixel-values-from-pgm-image-p5-using-pure-c-without-any-i
+
+
+/* Threshold */
+void thresh (IMAGE im, float **p, float **q)
+{
+	int i,j;
+	for (i=0; i<im->info->nr; i++)
+		for (j=0; j<im->info->nc; j++)
+			if (p[i][j] > q[i][j]) im->data[i][j] = 0;
+			else im->data[i][j] = 255;
+}
+
+
+long qtos_floats(FILE *fp)
+{
+long n_floats,
+     old_pos = ftel(fp); //posicao atual
+
+fseek(fp, 0L, SEEK_END);
+n_floats = ftell(fp);
+
+fseek(fp, old_pos, SEEK_SET);//repor estado inicial
+
+return n_floats;
+}
+
+
+
+vc pode guardar em um vetor de i intervalos, em q cada posicao representa o intervalo i
+dai vc faz os dois fors pra comparar cada intervalo e bota pra incrementar esse vetor de intervalos cada vez q achar o elemento
+
+eh q eu tava achando q era fixo os intervalos
+mas como eles variam, cria um intervalo de tamanho 255 de uma vez, e marca com -1 o limite do intervalo
+tipo, se tem 3 intervalos, marca a posicao com 3, q dai vc sabe q so vale de 0 a 2
+dai tu faz um while(contador<255)
+coloca um tam=256/b, e faz um for varia de contador=0, contador<tam,contador++
+
+dentro desse for, vc faz as comparacoes e os incrementos
+quando sair do for, vc faz tam=tam+tam
+e nao muda o valor do contador
+q dai os n's representam os intervalos, o contador sao os 256 elementos q vc tem, o while garante q vc percorre todos os elementos e o for delimita os intervalos
+
+
+i=0;
+tam=256/b;
+while(i<256)
+{
+    for(i;i<tam;i++)
+       {
+        }
+      tam=tam+256/b;
+}
+pq se fizer tam=tam+tam, vc vai estar dobrando ele, sendo q nao eh pra dobrar
+ai com o i vc anda no histo, e faz um outro contador dentro do for, j=tam, e faz j++ a cada interacao, pra vc andar nos intervalos malucos
+pq o vetor histo vc tem q verificar inteiro pra cada intervalo, certo?
+se sao 3 intervalos, é uma passada do histo pra cada um
+
+
+4 0 0 0 0 0 4 0 0 0 0 0 4 0 0 4
+256 256 256 256 256 256 256 256 256 256 256 256 256 256 256 256
+
+
+
+void histogram (unsigned char *image, float *hist)
+{
+	int i;
+	unsigned char *p;
+	
+	for	(i=0; i<256; i++) hist[i] = 0.0;
+
+	p = im->data[0];
+	
+	for	(i=0; i<width*height; i++) hist[(*p++)] += 1.0;
+
+	for(i=0; i<256; i++) hist[i] /= (float)width*height;
+}

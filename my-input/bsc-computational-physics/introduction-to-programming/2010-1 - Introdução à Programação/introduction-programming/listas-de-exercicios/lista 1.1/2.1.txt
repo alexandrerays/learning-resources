@@ -1,0 +1,21 @@
+/**********************************************************/
+/*Lista1 exer2.1.                                         */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010    */
+/**********************************************************/
+
+pow(2,2) => retorna 2^2 = 4
+
+pow(2.0,2) => retorna 2.0^2 = 4.000000
+
+floor(-99.9) => retorna o (chão) menor numero inteiro para esquerda = -100
+
+-floor(99.9) => retorna o (chão) menor numero inteiro para esquerda com sinal trocado = 99 * (-1) = -99
+
+-ceil(-99.9) => retorna o (teto) maior numero inteiro para direita com sinal trocado = -99 * (-1) = 99
+
+10/3 => retorna o quociente inteiro = 3. A não ser que seja colocado um cast (float)10/3 retornará quociente real = 3.333
+
+obs:10/3 = 3 ....... 10.0/3 = 3.3333 .....(float)10/3=3.33333....10/3.0 = 3.3333333
+
+126/3 = 42 .... mas 126.0/3 = 42.000000
+

@@ -1,0 +1,10 @@
+Os algoritmos foram feitos utilizando a linguagem portugol. A página do projeto dessa linguagem é:
+http://gpt.berlios.de/site/
+
+Nela vc encontrará o tutorial em pdf ou html e o próprio compilador gpt (roda em win e linux)
+
+
+Emanuel Valente vulgo Tourinho - Fiscomp T010
+
+emanuel.valente@usp.br
+msn: epaduel@hotmail.com

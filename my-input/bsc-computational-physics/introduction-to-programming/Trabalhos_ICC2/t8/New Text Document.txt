@@ -1,0 +1,19 @@
+basicamente o que você precisa fazer é:
+
+ler as musicas 'banco de dados'
+ler a musica 'pesquisa'
+procurar qual musica no 'bd' é mais próxima da 'pesquisa'
+
+para ler uma musica, voce precisa:
+ler um trecho da musica (obter N amplitudes, voce define N)
+passar fft nesse trecho
+ordenar os coeficientes (resultado da fft)
+
+pegar só os K maiores coeficientes
+calcular a magnitude de todos eles (isso dá a frequencia)
+com o vetor de frequencias em mao, contabilizar quantas vezes cada nota musical ocorre (ele deu a formula)
+
+cada trecho gerará uma linha de contagens de nota. uma matriz de trechos, portanto, descreve uma musica
+
+voce precisa desenvolver um método próprio para calcular qual matriz é mais parecida com qual
+

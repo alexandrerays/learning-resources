@@ -1,0 +1,214 @@
+
+<!-- saved from url=(0052)http://www.icmc.usp.br/pessoas/mello/trabalho07.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>FAQ Trabalho 7</title>
+</head>
+<body>
+<br>
+1) Quando devo reorganizar a fila de espera e chamar novos pacientes para atendimento?<br>
+<br>
+Enquanto houver novas entradas a serem processadas: a reorganização da fila, a liberação de pacientes, e chamada de novos pacientes para atendimento é feita apenas quando o programa recebe o tempo <t> de entrada. Assim, sempre se passam T minutos na simulação. Mesmo que um paciente termine de ser atendido, o que está esperando deverá aguardar a proxima chamada.<br>
+<br>
+Quando não houver novas entradas, a reorganização da fila de espera é feita após um paciente terminar de ser atendido e um novo paciente ser chamado.<br>
+<br>
+Um paciente que está na fila de espera poderá ser chamado para atendimento em 2 ocasiões apenas:<br>
+a) Após a reorganização da fila feita após a inclusão do novo grupo de pacientes que chegou (passado o tempo T), ou<br>
+b) Quando não houverem mais grupos de pacientes, e os atendimentos forem terminando sequencialmente, e a fila for sendo atendida também sequencialmente, sem novas inserções de pacientes.<br>
+<br>
+Exemplo (Considerando que os valores sorteados são sempre iguais à média -- apenas para exemplificar):<br>
+1<br>
+1000<br>
+0.0<br>
+2<br>
+Silva N N N N N N N N N N N N N N N N N S<br>
+Sousa N N N N N N N N N N N N N N N N N N<br>
+10.0<br>
+1<br>
+Santos N N N N N N N N N N N N N N N N N N<br>
+<br>
+Inicialmente, apenas o paciente Silva é chamado para atendimento, e o paciente Sousa tem tempo de espera estimado em 8 minutos. No entanto existe uma próxima entrada (10.0 minutos, 1 paciente). Por isso, passam-se 10.0 minutos, o novo paciente Santos é incluído na fila ANTES da chamada para atendimento. A fila é reorganizada e só então é chamado um novo paciente para ser atendido.<br>
+<br>
+<hr>
+<br>
+2) Quando e em qual ordem as saídas devem ser geradas?<br>
+<br>
+Em duas ocasiões:<br>
+a) Após a liberação dos pacientes em atendimento, exibidas por ordem crescente do registro do médicos<br>
+b) Após a chamada de novos pacientes para atendimento, quando o programa deverá percorrer a fila de espera, exibidas na ordem da fila (primeiro quem tiver maior prioridade / menor tempo estimado para atendimento)<br>
+<br>
+<hr>
+<br>
+3) O que fazer quando o tempo de espera limite de um paciente é atingido?<br>
+<br>
+Não é necessário tratar esse caso, não está especificado na tarefa.<br>
+<br>
+<hr>
+<br>
+4) O que significa, exatamente, o tempo T?<br>
+<br>
+Conforme especificado, o tempo T significa quanto tempo passou desde a chegada do último grupo de pacientes, e NÃO desde o início da simulação<br>
+<br>
+<hr>
+<br>
+5) Como estimar o tempo de espera para um dado paciente que deverá ficar na fila.<br>
+<br>
+Conforme especificado no trabalho o ".. tempo de espera estimado será o menor tempo entre os pacientes sendo atendidos somado aos tempos de atendimento previstos (de acordo com a prioridade) para os pacientes que estão na frente na fila"<br>
+<br>
+Isso é feito para FACILITAR calcular o tempo de espera pois, do contrário, teria que ser feita uma simulação de esvaziamento da fila de atendimento e retirada de elementos da heap, para cada paciente na fila, o que geraria um maior esforço computacional, principalmente se a fila tiver um número X de pacientes na espera e o número de médicos atendendo Y &lt;&lt; X<br>
+<br>
+Uma idéia de se implementar isso é somar o tempo de espera todos os pacientes que estão antes do paciente atual (ou seja, cuja prioridade possua um valor menor, ou que possua valor igual mas tenha sido inserida anteriormente no Heap)<br>
+<br>
+Para exemplificar, no caso do trabalho desenvolvido no PDF, no momento em que os pacientes Gomes e Lima chegam para atendimento, ambos deverão esperar pois não há médicos livres. Sabemos que Gomes possui prioridade superior a Lima, e que, nesse momento, estão em atendimento:<br>
+<br>
+1) Valle (que demorará 8 minutos para ser atendido)<br>
+2) Silva (que, nesse instante, demorará ainda mais 12,5 minutos para<br>
+ser atendido)<br>
+<br>
+Como o tempo de espera estimado será "o menor tempo entre os pacientes sendo atendidos somado aos tempos de atendimento previstos para os pacientes na frente da fila", então temos:<br>
+-&gt; Gomes (primeiro na fila), cujo tempo de espera estimado será o menor tempo entre os pacientes sendo atendidos = 8 minutos -&gt; Lima (segundo na fila), cujo tempo de espera estimado será o menor tempo entre os pacientes sendo atendidos = 8 minutos + o tempo de atendimento previsto para os pacientes na frente da fila = 8 minutos. 8 + 8 = 16 minutos.<br>
+<br>
+No entanto, como as entradas terminaram, após o atendimento de Valle (que é substituído por Gomes), e Silva (que será substituído por Lima), passam-se apenas 12,5 minutos, e o tempo real de espera do paciente Lima foi de 12,5 minutos.<br>
+<br>
+
+<hr>
+
+<br>
+6) Lendo o arquivo pdf do trabalho 7 surgiu uma dúvida em relação a entrada padrão do programa.<br>
+Na explicação da tarefa, na parte onde é mencionada a distribuição normal, existe um comentário sobre um custo fixo a ser atribuído quando o valor calculado da média menos o desvio padrão der negativo, e um pouco abaixo, na hora de explicar o que significa o <custo_fixo> na entrada de dados, o parágrafo está incompleto. Até aí tudo bem, porque já havia sido explicado anteriormente, então esse parágrafo não faz muita diferença.<br>
+Contudo, no exemplo de entrada e saída padrão no final da explicação do trabalho, este custo fixo não aparece na entrada submetida.<br>
+Devo considerar esse custo fixo como entrada ou posso atribuir um custo fixo igual a 0 quanto o valor calculado der negativo?<br><br>
+
+Resp: Você deverá considerar o custo fixo como entrada. O exemplo do PDF está incompleto, deveria ser algo como por exemplo:<br><br>
+
+2<br>
+101 102<br>
+1<br>
+arq_pacientes_001.txt<br><br>
+
+Sendo que o valor 1 representaria o custo fixo. Como no exemplo foi considerado que todos os valores sorteados são iguais à média, esse custo não é utilizado. No entanto, na sua implementação ele deve ser utilizado como controle, para quando a resposta do algoritmo de geração de números pseudo-aleatórios gerar como saída um número negativo.<br><br>
+
+
+<br>
+
+<hr>
+
+<br>
+
+7) Quando formos criar o tempo de espera de um paciente devemos somar o menor tempo dos pacientes que estão sendo atendidos certo? Mas naquele instante, somamos o tempo total de atendimento do paciente ou apenas o tempo que falta para finalizar a consulta?<br><br>
+
+Resp: Apenas o tempo que falta.<br><br>
+
+<hr>
+
+<br>
+
+8) Na mesma situação de somar os tempos para criar o tempo de espera. Exemplo que na fila de espera temos os pacientes: A B C D, quando formos calcular o tempo de espera do paciente D, devemos somar completamente os tempos dos pacientes A B e C ou devemos simular como eles deveriam ser atendidos e encontrar o menor tempo em que o paciente D deveria ser atendido?<br><br>
+
+Resp: Apenas somar, pois nesse caso é apenas um tempo de espera "estimado", e simular seria mais custoso<br><br>
+
+<hr>
+
+<br>
+
+9) Como será feito para acertar os casos de teste, se o programa utiliza algoritmo de geração de números pseudo-aleatórios?<br><br>
+
+Resp: Para que seja possível comparar melhor os casos de teste, é preciso que todos utilizem um mesmo valor como semente para o algoritmo de geração de numeros pseudo-aleatórios. Para isso utilizaremos o número de registro do primeiro médico recebido na entrada. Assim, por exemplo para uma entrada:<br><br>
+2<br>
+101&nbsp;102<br>
+1<br>
+arquivo.txt<br>
+<br>
+Seu programa deverá utilizar a função srand() passando como parâmetro o valor 101<br>
+<br>
+
+<hr>
+
+<br>
+10) A ordem de impressão ao gerar saídas pode ter diversas possibilidades, já que pacientes com a mesma prioridade podem chegar num mesmo instante para atendimento. Como deverá ser essa ordem?<br><br>
+
+Resp: Para liberar os pacientes, calcule para cada um o tempo restante<br>
+<br>
+tempo_restante = tempo_restante - tempo_passado<br>
+<br>
+mesmo que o valor seja negativo, mantenha pois você deverá imprimir na seguinte ordem:<br>
+<br>
+1.o aquele cujo valor tempo_restante seja mínimo<br>
+2.o ordem da lista de médicos (crescente pelo número de registro do médico), ou seja, caso haja mais do que um paciente com o valor mínimo, imprimir primeiro o que tiver sido atendido pelo medico com registro de menor valor<br>
+<br>
+<br>
+Ao final do processo, quando não houver mais grupos de pacientes para entrada, vá liberando um a um os pacientes, respeitando a mesma ordem citada acima.<br>
+<br>
+<hr>
+<br>
+11) Poderia explicar a execução do caso 1? Não estou entendendo<br>
+<br>
+Resp: Nesse caso 1, referente ao arquivo passado como exemplo:<br>
+<br>
+O primeiro grupo de pacientes chega no tempo 0.0<br>
+&gt; Valle, prioridade: 3, tempo de atendimento sorteado: 10.1<br>
+&gt; Silva, prioridade: 0, tempo de atendimento sorteado: 47.8<br>
+&gt; Sousa, prioridade: 2, tempo de atendimento sorteado: 10.3<br>
+<br>
+De todos Silva é atendido e os outros ficam na fila de espera. Como Silva será atendido em 47.8 min, a fila impressa será:<br>
+<br>
+E Sousa 47.8<br>
+E Valle 58.1<br>
+<br>
+O tempo de espera estimado de Valle será de 47.8 os 10.1 minutos de Souza.<br>
+<br>
+O segundo grupo de pacientes chega após 15.0 min.<br>
+&gt; Costa, prioridade: 1, tempo de atendimento sorteado: 17.2<br>
+<br>
+Como passaram-se 15.0 min, subtraimos 15.0 do tempo restante para atendimento dos pacientes sendo atendidos. Verificamos a lista dos pacientes sendo atendidos, para ver se ja é possível liberar algum médico:<br>
+**Medico 101 Atendendo Silva. Tempo total: 47.78, Tempo restante: 32.8<br>
+<br>
+Como o tempo restante não é &lt;= 0, Costa será colocado na fila de prioridades. O tempo de espera estimado para Costa será o tempo restante de Silva:<br>
+<br>
+E Costa 32.8<br>
+E Sousa 50.0<br>
+E Valle 60.3<br>
+<br>
+O terceiro e ultimo grupo de pacientes chega após 22.5 min.<br>
+&gt; Gomes, prioridade: 3, tempo de atendimento sorteado:  8.7<br>
+&gt; Lima, prioridade: 4, tempo de atendimento sorteado:  6.6<br>
+Verificamos os pacientes sendo atendidos, para ver se ja é possível liberar algum médico:<br>
+<br>
+**Medico 101 Atendendo Silva. Tempo total: 47.78, Tempo restante: 10.3<br>
+<br>
+Ainda não é possível liberar. Por isso seguem os outros na fila<br>
+<br>
+E Costa 10.3<br>
+E Sousa 27.5<br>
+E Valle 37.8<br>
+E Gomes 47.9<br>
+E Lima 56.5<br>
+<br>
+Como não chegam mais pacientes, faremos agora um tratamento especial, pois agora não há mais passagem de tempo definida pelos grupos de pacientes. Assim, os médicos liberam um a um os pacientes. Isso é feito usando os seguintes passos:<br>
+a) verificar na lista de pacientes sendo atendidos qual é aquele cujo tempo restante é mínimo. Nesse caso é o paciente Silva, com tempo restante 10.3.<br>
+b) utilizar esse tempo mínimo obtido no passo (a), subtraindo-o do 'tempo restante' de todos os pacientes em atendimento, simulando o passar do tempo.<br>
+c) após subtrair, percorrer a lista de médicos, na ordem do registro, liberando e imprimindo a saída na tela de todos aqueles cujo 'tempo restante' seja menor ou igual a zero.<br>
+d) se a fila não for vazia, alocar novos pacientes aos médicos disponíveis<br>
+e) se a lista de pacientes sendo atendidos não for vazia, retornar ao passo (a)<br>
+<br>
+Nesse caso, teremos:<br>
+**Medico Atendendo Silva Tempo Total: 47.78, Tempo restante: 0.00<br>
+<br>
+E assim geramos a primeira saída, com Silva:<br>
+<br>
+S 101 Silva 0 0.0<br>
+<br>
+Alocamos um novo paciente aos médicos disponíveis, nesse caso Costa.<br>
+<br>
+Verificamos a lista e liberamos Costa, agora inserindo Sousa na fila e assim na sequência até terminarem os pacientes.<br>
+<br>
+S 101 Costa 10 32.8<br>
+S 101 Sousa 20 65.0<br>
+S 101 Valle 60 75.3<br>
+S 101 Gomes 60 47.9<br>
+S 101 Lima 180 56.5<br>
+<br>
+<hr>
+<br>
+
+</custo_fixo></t></body></html>

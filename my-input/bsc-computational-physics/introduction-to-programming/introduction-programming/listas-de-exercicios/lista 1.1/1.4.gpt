@@ -1,0 +1,21 @@
+/*************************************************************************/
+/*Lista1 exer1.4. Converte dolares para reais conforme o cambio dado     */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010                   */
+/*************************************************************************/
+algoritmo lista1_exer4_dolares_para_reais;
+
+variáveis
+	dolar : real;
+	dolares : real;
+	br_real : real;
+fim-variáveis
+	
+início 
+	
+	dolar := 1.809;
+	imprima("Insira a quantidade em dolares: ");
+	dolares := leia();
+	br_real := dolares*dolar;	
+
+	imprima(dolares," dolares = ",br_real," reais.");	
+fim 

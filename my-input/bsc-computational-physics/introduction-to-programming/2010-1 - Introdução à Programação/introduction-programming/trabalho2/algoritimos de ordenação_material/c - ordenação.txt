@@ -1,0 +1,16 @@
+c completo e total
+pag 513
+
+
+
+heap sort- 18/06
+
+filho esquerdo do nó k
+2k+1
+
+filho direito do nó k
+2k+2
+
+pai do nó k
+(k-1)/2
+

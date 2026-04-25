@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+// Leitura e impressao dos dados do arquivo arq1
+//
+//
+
+typedef struct{
+        char *nome;
+        float salario;
+        }func;
+
+int main(){
+  int i, N; 
+  char aux[255]; 
+  func *vet, func1;   
+  FILE *fp; // p e um ponteiro para arquivo
+  fp = fopen("cadastro.txt", "r");
+  // teste se o arquivo foi criado
+  if(!fp){
+    printf("erro na leitura do arquivo/n");
+    exit(1);
+}
+  i=0;
+  while (!feof(fp)){
+   fscanf(fp, "%s", func1.nome);
+   fscanf(fp,"%f", &func1.salario);   
+   printf("Nome= %s\n", func1.nome);
+   printf("Salario= %f\n", func1.salario);     
+}
+   fclose(fp);
+   getch();getch();
+   
+}   

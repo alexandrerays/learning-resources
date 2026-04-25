@@ -1,0 +1,22 @@
+/*************************************************************************/
+/*Lista1 exer1.3. Obtem o equivalente em minutos a partir de segundos    */
+/*emanuel.valente@usp.br vulgo Tourinho - Fiscomp T010                   */
+/*************************************************************************/
+algoritmo lista1_exer3_minutos_de_segundos;
+
+variáveis
+	seg : inteiro;
+	min : inteiro;
+	resto : inteiro;
+fim-variáveis
+	
+início 
+	
+	imprima("Insira os segundos: ");
+	seg := leia();
+	min := seg/60;
+	resto :=(seg%60);
+	
+
+	imprima(seg," segundos equivalem a ",min," minutos e ",resto," segundos.");	
+fim 

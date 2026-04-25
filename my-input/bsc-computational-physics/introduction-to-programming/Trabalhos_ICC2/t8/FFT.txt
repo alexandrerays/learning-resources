@@ -1,0 +1,65 @@
+Segue uma implementação da FFT
+
+void fft(double vector[], int nn)
+{
+    int n, mmax, m, j, istep, i;
+    double wtemp, wr, wpr, wpi, wi, theta;
+    double tempr, tempi;
+    
+    j = 1;
+    n = nn << 1;
+    for (i = 1; i < n; i += 2) 
+    {
+	if (j > i) 
+	{
+	    tempr = vector[j];     vector[j] = vector[i];     vector[i] = tempr;
+	    tempr = vector[j+1]; vector[j+1] = vector[i+1]; vector[i+1] = tempr;
+	}
+	m = n >> 1;
+	while (m >= 2 && j > m) 
+	{
+	    j -= m;
+	    m >>= 1;
+	}
+	j += m;
+    }
+    mmax = 2;
+    while (n > mmax) 
+    {
+	istep = 2*mmax;
+	theta = TWOPI/mmax;
+	wtemp = sin(0.5*theta);
+	wpr = -2.0*wtemp*wtemp;
+	wpi = sin(theta);
+	wr = 1.0;
+	wi = 0.0;
+	for (m = 1; m < mmax; m += 2) 
+	{
+	    for (i = m; i <= n; i += istep) 
+	    {
+		j =i + mmax;
+		tempr = wr*vector[j]   - wi*vector[j+1];
+		tempi = wr*vector[j+1] + wi*vector[j];
+		vector[j]   = vector[i]   - tempr;
+		vector[j+1] = vector[i+1] - tempi;
+		vector[i] += tempr;
+		vector[i+1] += tempi;
+	    }
+	    wr = (wtemp = wr)*wpr - wi*wpi + wr;
+	    wi = wi*wpr + wtemp*wpi + wi;
+	}
+	mmax = istep;
+    }
+}
+ 
+// uso dessa FFT:
+double *X = (double *) calloc((2*N+1), sizeof(double)); // vetor de entrada de tamanho 2*N+1, sendo N o numero de elementos do vetor a ser transformado
+X[2*i+1] = dados[j]; // copiar cada entrada 'j' dos dados para a posicao 'i' real
+X[2*i+2] = 0.0;      // posicao 'i' imaginaria - no vetor de entrada eh nula
+fft(X, N, 1); // chama fft
+// agora X contem 
+//    X[2*i+1] coeficiente 'i' real
+//    X[2*i+2] coeficiente 'i' imaginario
+
+
+0.4 * 4,10 + 0,6* 5,6
