@@ -40,3 +40,7 @@
 | 21 | 2023 | Virei líder, e agora? | Conquer Plus | Certificate course |
 | 22 | 2023 | [Agile Leadership: Become An Agile Leader](https://www.udemy.com/course/agile-leadership-j/) | Udemy | Short course |
 | 23 | 2023 | [Emotional Intelligence at Work: Learn from Your Emotions](https://www.udemy.com/course/emotional-intelligence-at-work-learn-from-your-emotions/) | Udemy | Short course |
+
+## Books
+
+See my full reading list on [Goodreads](https://www.goodreads.com/alexandrerays).
