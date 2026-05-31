@@ -1,4 +1,12 @@
-# **1. Mandarim (Chinês)**
+## Youtube Channels
+
+- [Accent's Way English with Hadar](https://www.youtube.com/@hadar.shemesh)
+- [ENGLISH with James · engVid](https://www.youtube.com/@engvidJames/videos)
+- [RealLife English](https://www.youtube.com/c/RealLifeEnglish1/featured)
+- [Learn English With TV Series](https://www.youtube.com/c/LearnEnglishWithTVSeries/featured)
+- [**English Like A Native**](https://www.youtube.com/@EnglishLikeANative/videos)
+
+## **1. Mandarim (Chinês)**
 
 **O idioma da hegemonia econômica e tecnológica.**
 
@@ -6,7 +14,7 @@
 
 **Impacto de "Cidadão do Mundo":** Abre as portas para a maior classe média consumidora do planeta e para parcerias em todo o Sudeste Asiático (onde a influência chinesa é total).
 
-# **2. Espanhol**
+## **2. Espanhol**
 
 **A consolidação das Américas e o crescimento nos EUA.**
 
@@ -14,7 +22,7 @@
 
 **Impacto de "Cidadão do Mundo":** Para quem vive no Brasil, é a peça final para dominar o comércio e a cultura de todo o hemisfério ocidental. É o idioma com o melhor "custo-benefício" de aprendizado para você.
 
-# **3. Francês**
+## **3. Francês**
 
 **A língua do futuro demográfico (África).**
 
@@ -22,7 +30,7 @@
 
 **Impacto de "Cidadão do Mundo":** Além de ser a língua da diplomacia e do luxo europeu, o francês te posiciona nos mercados que mais crescerão em consumo e infraestrutura nos próximos anos.
 
-# **4. Árabe (Moderno Padrão)**
+## **4. Árabe (Moderno Padrão)**
 
 **O idioma dos grandes fluxos de capital e energia.**
 
@@ -30,7 +38,7 @@
 
 **Impacto de "Cidadão do Mundo":** Dá acesso a uma região que detém uma fatia massiva da riqueza líquida global. É um diferencial raro que te coloca em salas de negociação de altíssimo nível.
 
-# Alcance Global
+## Alcance Global
 | Idioma | Falantes Totais | Papel Estratégico |
 | --- | --- | --- |
 | **Inglês** | ~1,5 bilhão | Negócios, Ciência e Tecnologia. |
@@ -38,3 +46,5 @@
 | **Espanhol** | ~560 milhões | Cultura, Consumo e Expansão nos EUA. |
 | **Português** | ~260 milhões | Commodities, Energia e Hub na África. |
 | **TOTAL** | **~3,4 Bilhões** | **Domínio do Ocidente + Maior Potência Asiática.** |
+
+![](language-learning-2026.png)
