@@ -1,0 +1,125 @@
+## 🧠 1. Lower the friction (most important)
+
+- Keep **one main repo** always open (your “daily driver”)
+- Predefine tasks → no thinking required when you sit down
+- Examples:
+    - Improve README
+    - Refactor 1 function
+    - Add 1 test
+    - Fix 1 bug
+
+👉 Goal: *“1 small commit per day” becomes trivial*
+
+---
+
+## ⏱️ 2. Use a fixed daily slot (habit > motivation)
+
+- Same time every day (e.g. 9:00–9:30)
+- Treat like brushing teeth
+- Even **5–10 min counts**
+
+---
+
+## 🔁 3. Create “evergreen” projects
+
+Have projects that never “end”:
+
+- AI experiments (RAG, agents, etc.)
+- Notes repo (markdown knowledge base)
+- Leetcode-style repo
+- Blog/content repo
+
+👉 You always have somewhere to commit
+
+---
+
+## 🧩 4. Break work into micro-commits
+
+Bad:
+
+- “Build full feature”
+
+Good:
+
+- “Create schema”
+- “Add endpoint”
+- “Write test”
+- “Fix edge case”
+
+👉 Each = 1 commit = 1 green square
+
+---
+
+## 🤖 5. Automate when possible (smart, not fake)
+
+- Scheduled jobs (e.g. daily data pull, cron jobs)
+- Bots updating datasets / README stats
+- CI pipelines generating artifacts
+
+⚠️ Avoid fake commits just to fill graph → recruiters notice
+
+---
+
+## 📦 6. Use private repos strategically
+
+- GitHub counts **private contributions**
+- Work on real stuff (client, experiments, notes)
+
+👉 Clean public profile + consistent graph
+
+---
+
+## 🧪 7. Tie contributions to your career
+
+Given your AI Engineer path:
+
+- Build:
+    - RAG system repo
+    - Agent framework experiments
+    - Prompt engineering playground
+    - Evaluation (RAGAS, DeepEval)
+
+👉 Each iteration = commit
+
+---
+
+## 📊 8. Track streaks (simple KPI)
+
+- Define: **“≥1 commit/day”**
+- Use tools like:
+    - GitHub built-in graph
+    - Streak trackers (optional)
+
+---
+
+## 🧹 9. Batch on busy days
+
+- If no time:
+    - Commit notes
+    - Update docs
+    - Push WIP code
+
+👉 Consistency > perfection
+
+---
+
+## 🔥 10. Have a fallback rule
+
+If you're tired:
+
+- Just:
+    - Update README
+    - Add TODO
+    - Rename variables
+    - Commit learning notes
+
+👉 Never break the chain
+
+---
+
+## 💡 Simple system (recommended)
+
+- 1 main repo (AI experiments)
+- 1 notes repo (daily learnings)
+- 15 min daily block
+- Minimum: 1 commit/day
