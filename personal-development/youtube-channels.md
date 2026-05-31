@@ -1,0 +1,3 @@
+- [Dr. Shadé Zahrai](https://www.youtube.com/@Dr.ShadeZahrai/videos)
+- [Firm Learning](https://www.youtube.com/@FirmLearning/videos)
+- [Better Ideas](https://www.youtube.com/c/BetterIdeas/featured)
